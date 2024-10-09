@@ -1,0 +1,13 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@import 'components/login/login.scss';
+@import 'shared/components/button/button.scss';
+@import 'shared/components/input/input.scss';

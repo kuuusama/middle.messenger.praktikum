@@ -1,0 +1,18 @@
+//colors - by name
+$color_blue: #3369F3;
+$color_blue_hover: #3730ef;
+$color_white: #ffffff;
+$color_black: #000000;
+
+//colors - semantic
+$color_main_text: #1e1e1e;
+$color_label: #999999;
+$color_error: #ff2f2f;
+
+//Fonts
+@mixin button_font {
+    font-family: 'Inter';
+    color: $color_white;
+    font-size: 13px;
+    font-weight: 500;
+}

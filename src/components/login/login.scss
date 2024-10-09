@@ -1,0 +1,26 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 30px;
+    padding-top: 50px;
+
+    width: 350px;
+    min-height: 450px;
+    border-radius: 12px;
+    box-shadow: 0 0 6px 0 #0000001f;
+
+    .title {
+        font-family: 'Inter';
+        color: #1e1e1e;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 40px;
+    }
+    
+    .spacer {
+        flex-grow: 100;
+    }
+}

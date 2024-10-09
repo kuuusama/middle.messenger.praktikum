@@ -1,0 +1,33 @@
+@import '../../styles/const.scss';
+
+.button {
+    @include button_font;
+
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: $color_blue;
+    text-align: center;
+    margin-bottom: 14px;
+
+    cursor: pointer;
+
+    &.full_width {
+        width: 100%;
+    }
+
+    &.white {
+        padding: 0;
+        margin: 0;
+        color: $color_blue;
+        background-color: $color_white;
+    }
+
+    &:hover {
+        background-color: $color_blue_hover;
+    }
+    
+    &.white:hover {
+        background-color: $color_white;
+    }
+}
