@@ -1,3 +1,6 @@
+![Дизайн](https://www.figma.com/design/JKWYSfupwnL3lgQ0XqSz06/Chat_sergey's_fork?node-id=1-600&node-type=frame&t=2gfdbSKVjsll8yrd-0)
+
+
 ### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
 
 ### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
