@@ -1,0 +1,219 @@
+<script>
+    function toggle_menu(id) {
+        const attachMenu = document.getElementById(id);
+        if (attachMenu) {
+            attachMenu.classList.toggle("open")
+        }
+    }
+
+    function toggleUserDialog(mode) {
+        const userDialog = document.getElementById('userDialog');
+
+        const addButton = document.getElementById('addButton');
+        const delButton = document.getElementById('delButton');
+        const addSpan = document.getElementById('addSpan');
+        const delSpan = document.getElementById('delSpan');
+
+        addButton.classList.remove('visible');
+        addSpan.classList.remove('visible');
+        delButton.classList.remove('visible');
+        delSpan.classList.remove('visible');
+
+
+        if ('add' === mode) {
+            addButton.classList.add('visible');
+            addSpan.classList.add('visible');
+        } else {
+            delButton.classList.add('visible');
+            delSpan.classList.add('visible');
+        }
+        userDialog.classList.toggle("open");
+        userMenu.classList.toggle("open");
+    }
+</script>
+<div class="chat">
+    <div class="left">
+        <div class="left_profile">
+            <a class="profile_link" onclick="window.app.changeState(3)">Профиль ></a>
+        </div>
+
+        <div class="search_container">
+            <input type="text" class="search" placeholder="Поиск">
+        </div>
+
+        <div class="contacts">
+            <div class="contact">
+                <div class="avatar"></div>
+                <div class="main">
+                    <div class="name">Андрей</div>
+                    <div class="message">
+                        <span class="you">Вы:</span>
+                        Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...
+                    </div>
+                </div>
+                <div class="indicators">
+                    <span class="clock">12:00</span>
+                    <span class="counter">4</span>
+                </div>
+            </div>
+
+            <div class="contact">
+                <div class="avatar"></div>
+                <div class="main">
+                    <div class="name">Андрей</div>
+                    <div class="message">
+                        <span class="you">Вы:</span>
+                        Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...
+                    </div>
+                </div>
+                <div class="indicators">
+                    <span class="clock">12:00</span>
+                    <span class="counter">4</span>
+                </div>
+            </div>
+
+            <div class="contact selected">
+                <div class="avatar"></div>
+                <div class="main">
+                    <div class="name">Андрей</div>
+                    <div class="message">
+                        <span class="you">Вы:</span>
+                        Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...Друзья, у меня для вас особенный выпуск новостей! Вчера под вечер...
+                    </div>
+                </div>
+                <div class="indicators">
+                    <span class="clock">12:00</span>
+                    <span class="counter">4</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="top">
+            <div class="active_contact">
+                <div class="avatar"></div>
+                <div class="name">Вадим</div>
+            </div>
+
+            <div class="menu user_menu" id="userMenu">
+                <button class="menu_item" onclick="toggleUserDialog('add'); toggle_menu('userMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="10.25" stroke="#3369F3" stroke-width="1.5"/>
+                        <line x1="10.9999" y1="5.5" x2="10.9999" y2="16.5" stroke="#3369F3" stroke-width="1.5"/>
+                        <line x1="5.49988" y1="11" x2="16.4999" y2="11" stroke="#3369F3" stroke-width="1.5"/>
+                    </svg>
+                    <span>Добавить пользователя</span>
+                </button>
+
+                <button class="menu_item" onclick="toggleUserDialog('del'); toggle_menu('userMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="10.25" stroke="#3369F3" stroke-width="1.5"/>
+                        <line x1="7.11077" y1="7.11103" x2="14.8889" y2="14.8892" stroke="#3369F3" stroke-width="1.5"/>
+                        <line x1="7.11078" y1="14.8891" x2="14.889" y2="7.11093" stroke="#3369F3" stroke-width="1.5"/>
+                    </svg>
+                    <span>Удалить пользователя</span>
+                </button>
+            </div>
+
+            <button class="menu_button" onclick="toggle_menu('userMenu')">
+                <svg width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="1.5" cy="2" r="1.5" />
+                    <circle cx="1.5" cy="8" r="1.5" />
+                    <circle cx="1.5" cy="14" r="1.5" />
+                </svg>
+            </button>
+
+            <div class="user_dialog" id="userDialog">
+                <div class="dialog_content">
+                    <div class="dialog_title"><span id="addSpan">Добавить</span><span id="delSpan">Удалить</span> пользователя</div>
+                    {{>input class="full_width" label="Логин" name="login"}}
+                    {{>button class="full_width" label='Добавить' click="alert('Добавляем...'); toggleUserDialog();" id="addButton"}}
+                    {{>button class="full_width" label='Удалить' click="alert('Удаляем...'); toggleUserDialog();" id="delButton"}}
+                </div>
+            </div>
+        </div>
+        <div class="conversation">
+            <div class="date">19 июня</div>
+
+            <div class="message">
+                <div class="content">
+                    Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+                </div>
+
+                <div class="message_indicators">
+                    <div class="read">
+                        <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line y1="-0.5" x2="3.765" y2="-0.5" transform="matrix(0.705933 0.708278 -0.705933 0.708278 0.700195 2.33313)" stroke="#3369F3"/>
+                            <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5.00006)" stroke="#3369F3"/>
+                            <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 6.01587 5.00006)" stroke="#3369F3"/>
+                            </svg>
+                    </div>
+                    <div class="message_time">11:56</div>
+                </div>
+            </div>
+
+            <div class="message my was_read">
+                <div class="content">
+                    Круто!
+                </div>
+                <div class="message_indicators">
+                    <div class="read">
+                        <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line y1="-0.5" x2="3.765" y2="-0.5" transform="matrix(0.705933 0.708278 -0.705933 0.708278 0.700195 2.33313)" stroke="#3369F3"/>
+                            <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5.00006)" stroke="#3369F3"/>
+                            <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 6.01587 5.00006)" stroke="#3369F3"/>
+                            </svg>
+                    </div>
+                    <div class="message_time">11:56</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="bottom">
+            <div class="menu attach_menu" id="attachMenu">
+                <button class="menu_item" onclick="toggle_menu('attachMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 1.5H18C19.3807 1.5 20.5 2.61929 20.5 4V14L14.5194 12.4052C13.5108 12.1362 12.4714 12 11.4275 12H10.5725C9.52864 12 8.48921 12.1362 7.48057 12.4052L1.5 14V4C1.5 2.61929 2.61929 1.5 4 1.5ZM0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM8 6C8 7.10457 7.10457 8 6 8C4.89543 8 4 7.10457 4 6C4 4.89543 4.89543 4 6 4C7.10457 4 8 4.89543 8 6Z" fill="#3369F3"/>
+                    </svg>
+                    <span>Фото или видео</span>
+                </button>
+
+                <button class="menu_item" onclick="toggle_menu('attachMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 1.5H18C19.3807 1.5 20.5 2.61929 20.5 4V12H16C13.7909 12 12 13.7909 12 16V20.5H4C2.61929 20.5 1.5 19.3807 1.5 18V4C1.5 2.61929 2.61929 1.5 4 1.5ZM12 22H4C1.79086 22 0 20.2091 0 18V4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V12V18C22 20.2091 20.2091 22 18 22H12Z" fill="#3369F3"/>
+                    </svg>
+                    <span>Файл</span>
+                </button>
+
+                <button class="menu_item" onclick="toggle_menu('attachMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5 11C20.5 16.2467 16.2467 20.5 11 20.5C5.75329 20.5 1.5 16.2467 1.5 11C1.5 5.75329 5.75329 1.5 11 1.5C16.2467 1.5 20.5 5.75329 20.5 11ZM22 11C22 17.0751 17.0751 22 11 22C4.92487 22 0 17.0751 0 11C0 4.92487 4.92487 0 11 0C17.0751 0 22 4.92487 22 11ZM11 14C12.6569 14 14 12.6569 14 11C14 9.34315 12.6569 8 11 8C9.34315 8 8 9.34315 8 11C8 12.6569 9.34315 14 11 14Z" fill="#3369F3"/>
+                    </svg>
+                    <span>Локация</span>
+                </button>
+            </div>
+
+            <button class="attach" onclick="toggle_menu('attachMenu')">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.18662 12.5L13.7628 4.92389L14.7056 5.8667L7.12943 13.4428L6.18662 12.5Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.70067 15.0141L16.2768 7.43793L17.2196 8.38074L9.64348 15.9569L8.70067 15.0141Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0433 20.3567L21.6195 12.7806L22.5623 13.7234L14.9861 21.2995L14.0433 20.3567Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5574 22.8708L24.1335 15.2946L25.0763 16.2374L17.5002 23.8136L16.5574 22.8708Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5574 22.8709C13.9423 25.486 9.71181 25.4954 7.10831 22.8919C4.50482 20.2884 4.51424 16.0579 7.12936 13.4428L6.18655 12.5C3.0484 15.6381 3.0371 20.7148 6.16129 23.839C9.28549 26.9632 14.3621 26.9518 17.5003 23.8137L16.5574 22.8709Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6195 12.7806L22.5623 13.7234C25.003 11.2826 25.0118 7.3341 22.5819 4.90417C20.152 2.47424 16.2035 2.48303 13.7627 4.92381L14.7055 5.86662C16.6233 3.94887 19.7257 3.94196 21.6349 5.85119C23.5441 7.76042 23.5372 10.8628 21.6195 12.7806Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.70092 15.0144C6.95751 16.7578 6.95123 19.5782 8.68689 21.3138C10.4226 23.0495 13.2429 23.0432 14.9863 21.2998L14.0435 20.357C12.8231 21.5774 10.8489 21.5818 9.63391 20.3668C8.41894 19.1518 8.42334 17.1776 9.64373 15.9572L8.70092 15.0144Z" />
+                </svg>
+            </button>
+
+            <input class="phrase" type="text" placeholder="Сообщение">
+
+            <button class="round">
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect y="5.19995" width="11" height="1.6" fill="white"/>
+                    <path d="M7 1L11 6L7 11" stroke="white" stroke-width="1.6"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
