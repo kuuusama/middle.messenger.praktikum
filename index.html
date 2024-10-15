@@ -1,10 +1,30 @@
 <html lang="ru">
-    {{>head }}
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..600;1,14..32,400..600&display=swap" rel="stylesheet">
+        <title>Simple chat</title>
+    </head>
 
     <body>
         <div id="app"></div>
-        <a href="./register.html">Register</a>
         <script type="module" src="./src/main.ts"></script>
-        {{>login }}
+
+        <div class="state state_login" id="stateLogin">
+            {{>login }}
+        </div>
+
+        <div class="state state_register" id="stateRegister">
+            {{>register }}
+        </div>
+
+        <div class="state state_chat" id="stateChat">
+            {{>chat }}
+        </div>
+
+        <div class="state state_profile" id="stateProfile">
+            {{>profile }}
+        </div>
     </body>
 </html>
