@@ -30,6 +30,12 @@
         userDialog.classList.toggle("open");
         userMenu.classList.toggle("open");
     }
+
+    function toggleChatDialog() {
+        const chatDialog = document.getElementById('chatDialog');
+        chatDialog.classList.toggle("open");
+        userMenu.classList.toggle("open");
+    }
 </script>
 <div class="chat">
     <div class="left">
@@ -114,6 +120,15 @@
                     </svg>
                     <span>Удалить пользователя</span>
                 </button>
+
+                <button class="menu_item" onclick="toggleChatDialog(); toggle_menu('userMenu')">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="10.25" stroke="#FF2F2F" stroke-width="1.5"/>
+                        <line x1="7.11077" y1="7.11103" x2="14.8889" y2="14.8892" stroke="#FF2F2F" stroke-width="1.5"/>
+                        <line x1="7.11078" y1="14.8891" x2="14.889" y2="7.11093" stroke="#FF2F2F" stroke-width="1.5"/>
+                    </svg>
+                    <span>Удалить чат</span>
+                </button>
             </div>
 
             <button class="menu_button" onclick="toggle_menu('userMenu')">
@@ -132,6 +147,15 @@
                     {{>button class="full_width" label='Удалить' click="alert('Удаляем...'); toggleUserDialog();" id="delButton"}}
                 </div>
             </div>
+
+            <div class="user_dialog" id="chatDialog">
+                <div class="dialog_content">
+                    <div class="dialog_title">Удалить текущий чат?</div>
+                    {{>button class="full_width" label='Удалить' click="alert('Удаляем...'); toggleChatDialog();" id="delChatButton"}}
+                    {{>linkbutton label='Оставить' click="toggleChatDialog();"}}
+                </div>
+            </div>
+
         </div>
         <div class="conversation">
             <div class="date">19 июня</div>
