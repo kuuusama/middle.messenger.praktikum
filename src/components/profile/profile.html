@@ -130,7 +130,7 @@
 
                         <label for="inputFile" class="dialog_button" id="inputFileLabel">Выбрать файл на<br>компьютере</label>
                         <label for="inputFile" class="dialog_value" id="inputFileValue"></label>
-                        <input type="file" id="inputFile" class="dialog_file" oninput="fileChanged(event)">
+                        <input type="file" id="inputFile" class="dialog_file" oninput="fileChanged(event)" name="avatar">
     
                         {{>button id="avatarSaveButton" label="Поменять" class="dialog_save_button full_width" click="doAvatarChange()"}}
 
@@ -155,19 +155,19 @@
                 <div class="field">
                     <label class="field_label" for="name">Имя</label>
                     <div class="field_value">Иван</div>
-                    <input class="field_input" type="text" name="name" placeholder="Имя">
+                    <input class="field_input" type="text" name="first_name" placeholder="Имя">
                 </div>
     
                 <div class="field">
                     <label class="field_label" for="surname">Фамилия</label>
                     <div class="field_value">Иванов</div>
-                    <input class="field_input" type="text" name="surname" placeholder="Фамилия">
+                    <input class="field_input" type="text" name="second_name" placeholder="Фамилия">
                 </div>
     
                 <div class="field">
                     <label class="field_label" for="chatname">Имя в чате</label>
                     <div class="field_value">Иван</div>
-                    <input class="field_input" type="txt" name="chatname" placeholder="Имя в чате">
+                    <input class="field_input" type="txt" name="display_name" placeholder="Имя в чате">
                 </div>
     
                 <div class="field">
@@ -180,17 +180,17 @@
             <div class="fields passwords" id="passwords">
                 <div class="field">
                     <label class="field_label" for="old_password">Старый пароль</label>
-                    <input class="field_input visible" type="password" name="old_password" placeholder="Старый пароль">
+                    <input class="field_input visible" type="password" name="oldPassword" placeholder="Старый пароль">
                 </div>
 
                 <div class="field">
                     <label class="field_label" for="new_password">Новый пароль</label>
-                    <input class="field_input visible" type="password" name="new_password" placeholder="Новый пароль">
+                    <input class="field_input visible" type="password" name="newPassword" placeholder="Новый пароль">
                 </div>
 
                 <div class="field">
                     <label class="field_label" for="new_password2">Новый пароль</label>
-                    <input class="field_input visible" type="password" name="new_password2" placeholder="Новый пароль повторно">
+                    <input class="field_input visible" type="password" name="newPassword" placeholder="Новый пароль повторно">
                 </div>
 
             </div>
