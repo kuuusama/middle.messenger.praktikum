@@ -1,0 +1,20 @@
+@import '../../styles/const.scss';
+
+.linkbutton {
+    @include button_font;
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    color: $color_blue;
+
+    cursor: pointer;
+
+    &:hover {
+        color: $color_blue_hover;
+    }
+}
