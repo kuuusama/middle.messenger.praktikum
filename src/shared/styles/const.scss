@@ -1,5 +1,5 @@
 //colors - by name
-$color_blue: #3369F3;
+$color_blue: #3369f3;
 $color_blue_hover: #3730ef;
 $color_white: #ffffff;
 $color_black: #000000;
@@ -8,6 +8,18 @@ $color_black: #000000;
 $color_main_text: #1e1e1e;
 $color_label: #999999;
 $color_error: #ff2f2f;
+$color_border: #eaeaea;
+$color_shadow: #0000001f;
+$color_backdrop: #00000066;
+$color_image_shadow: #00000080;
+$color_background_secondary: #fbfbfb;
+$color_background_message: #f8f8f8;
+$color_background_selected: #e4edfd;
+$color_background_input: #efefef;
+$color_dialog_value: #8d8d8d;
+$color_button_hover: #f5f5f5;
+
+
 
 //Fonts
 @mixin button_font {

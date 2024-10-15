@@ -10,11 +10,11 @@
     width: 350px;
     min-height: 450px;
     border-radius: 12px;
-    box-shadow: 0 0 6px 0 #0000001f;
+    box-shadow: 0 0 6px 0 $color_shadow;
 
     .title {
         font-family: 'Inter';
-        color: #1e1e1e;
+        color: $color_main_text;
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 40px;
