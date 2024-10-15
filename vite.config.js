@@ -23,6 +23,7 @@ export default defineConfig({
                 resolve(__dirname, './src/components/register'),
                 resolve(__dirname, './src/components/chat'),
                 resolve(__dirname, './src/components/profile'),
+                resolve(__dirname, './src/components/404'),
             ],
           }),
     ]

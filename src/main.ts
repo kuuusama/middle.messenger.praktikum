@@ -9,6 +9,7 @@ enum ChatState {
     REGISTER = 1,
     CHAT = 2,
     PROFILE = 3,
+    NOT_FOUND = 4
 }
 
 window.app = {
@@ -20,12 +21,9 @@ window.app = {
     },
 
     changeState: (state: ChatState) => {
-        console.log(`Target state: ${state}`);
         window.app.hideAllStates();
-        const states = ['stateLogin', 'stateRegister', 'stateChat', 'stateProfile'];
+        const states = ['stateLogin', 'stateRegister', 'stateChat', 'stateProfile', 'state404'];
         const div = document.getElementById(states[state]);
-        console.log(`target div: `);
-        console.log(div);
         div?.classList.add('visible');        
     }
 }
