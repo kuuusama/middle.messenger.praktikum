@@ -45,7 +45,14 @@
         </div>
 
         <div class="search_container">
-            <input type="text" class="search" placeholder="Поиск" />
+            <form target="#">
+                <input
+                    type="text"
+                    class="search"
+                    placeholder="Поиск"
+                    name="search"
+                />
+            </form>
         </div>
 
         <div class="contacts">
@@ -262,10 +269,10 @@
 
             <div class="user_dialog" id="userDialog">
                 <div class="dialog_content">
-                    <div class="dialog_title">
-                        <span id="addSpan">Добавить</span
-                        ><span id="delSpan">Удалить</span> пользователя
-                    </div>
+                    <h1 class="dialog_title">
+                        <span id="addSpan">Добавить</span>
+                        <span id="delSpan">Удалить</span> пользователя
+                    </h1>
                     {{>input class="full_width" label="Логин" name="login"}}
                     {{>button class="full_width" label='Добавить'
                     click="alert('Добавляем...'); toggleUserDialog();"
