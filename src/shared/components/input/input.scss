@@ -1,0 +1,49 @@
+@import "../../styles/const.scss";
+
+.input_box {
+    font-family: "Inter";
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 32px;
+
+    &.full_width {
+        width: 100%;
+    }
+
+    .label,
+    .error {
+        font-size: 9px;
+        color: $color_label;
+        margin-bottom: 8px;
+        display: none;
+
+        &.visible {
+            display: inline-block;
+        }
+    }
+
+    .error {
+        color: $color_error;
+        margin-bottom: 0;
+        margin-top: 7px;
+    }
+
+    .input {
+        font-size: 13px;
+        font-weight: 500;
+        color: $color_main_text;
+
+        width: 100%;
+        padding: 7px;
+        border: none;
+        border-bottom: 1px solid $color_blue;
+        outline: none;
+
+        &.error {
+            color: $color_error;
+        }
+    }
+}
