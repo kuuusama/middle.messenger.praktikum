@@ -1,8 +1,8 @@
-import './link.scss';
+import "./link.scss";
 
 export class Link {
-    label: string = '';
-    href: string = '';
-    class: string = '';
+    label: string = "";
+    href: string = "";
+    class: string = "";
     click = () => {};
 }

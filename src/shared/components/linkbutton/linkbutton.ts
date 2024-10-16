@@ -1,7 +1,7 @@
-import './linkbutton.scss';
+import "./linkbutton.scss";
 
 export class LinkButton {
-    label: string = '';
-    class: string = '';
+    label: string = "";
+    class: string = "";
     click = () => {};
 }

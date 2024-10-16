@@ -1,4 +1,4 @@
-@import '../../styles/const.scss';
+@import "../../styles/const.scss";
 
 .button {
     @include button_font;
@@ -26,7 +26,7 @@
     &:hover {
         background-color: $color_blue_hover;
     }
-    
+
     &.white:hover {
         background-color: $color_white;
     }

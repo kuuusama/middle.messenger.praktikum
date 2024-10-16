@@ -1,7 +1,9 @@
-import './main.scss';
+import "./main.scss";
 
 declare global {
-    interface Window { app: any; }
+    interface Window {
+        app: any;
+    }
 }
 
 enum ChatState {
@@ -9,23 +11,29 @@ enum ChatState {
     REGISTER = 1,
     CHAT = 2,
     PROFILE = 3,
-    NOT_FOUND = 4
+    NOT_FOUND = 4,
 }
 
 window.app = {
     hideAllStates: () => {
-        const states = document.getElementsByClassName('state');
+        const states = document.getElementsByClassName("state");
         Array.from(states).forEach((state) => {
-            state.classList.remove('visible');
-        });        
+            state.classList.remove("visible");
+        });
     },
 
     changeState: (state: ChatState) => {
         window.app.hideAllStates();
-        const states = ['stateLogin', 'stateRegister', 'stateChat', 'stateProfile', 'state404'];
+        const states = [
+            "stateLogin",
+            "stateRegister",
+            "stateChat",
+            "stateProfile",
+            "state404",
+        ];
         const div = document.getElementById(states[state]);
-        div?.classList.add('visible');        
-    }
-}
+        div?.classList.add("visible");
+    },
+};
 
 window.app.changeState(ChatState.LOGIN);

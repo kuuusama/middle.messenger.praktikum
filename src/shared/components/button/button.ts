@@ -1,7 +1,7 @@
-import './button.scss';
+import "./button.scss";
 
 export class Button {
-    label: string = '';
-    id: string = '';
+    label: string = "";
+    id: string = "";
     click = () => {};
 }

@@ -1,7 +1,7 @@
-@import '../../styles/const.scss';
+@import "../../styles/const.scss";
 
 .input_box {
-    font-family: 'Inter';
+    font-family: "Inter";
 
     display: flex;
     flex-direction: column;
@@ -13,17 +13,18 @@
         width: 100%;
     }
 
-    .label, .error {
+    .label,
+    .error {
         font-size: 9px;
         color: $color_label;
         margin-bottom: 8px;
         display: none;
-    
+
         &.visible {
             display: inline-block;
         }
     }
-    
+
     .error {
         color: $color_error;
         margin-bottom: 0;
@@ -34,7 +35,7 @@
         font-size: 13px;
         font-weight: 500;
         color: $color_main_text;
-    
+
         width: 100%;
         padding: 7px;
         border: none;

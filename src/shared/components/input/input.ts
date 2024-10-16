@@ -1,6 +1,6 @@
 export class Input {
-    label: string = '';
-    error: string = '';
-    type: string = '';
-    name: string = '';
+    label: string = "";
+    error: string = "";
+    type: string = "";
+    name: string = "";
 }

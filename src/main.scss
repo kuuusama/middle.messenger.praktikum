@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     &.visible {
         display: flex;
     }
@@ -31,13 +31,13 @@ body {
     align-items: stretch;
 }
 
-@import 'shared/styles/const.scss';
-@import 'components/login/login.scss';
-@import 'components/chat/chat.scss';
-@import 'components/profile/profile.scss';
-@import 'components/404/404.scss';
-@import 'components/500/500.scss';
-@import 'shared/components/button/button.scss';
-@import 'shared/components/input/input.scss';
-@import 'shared/components/link/link.scss';
-@import 'shared/components/linkbutton/linkbutton.scss';
+@import "shared/styles/const.scss";
+@import "components/login/login.scss";
+@import "components/chat/chat.scss";
+@import "components/profile/profile.scss";
+@import "components/404/404.scss";
+@import "components/500/500.scss";
+@import "shared/components/button/button.scss";
+@import "shared/components/input/input.scss";
+@import "shared/components/link/link.scss";
+@import "shared/components/linkbutton/linkbutton.scss";

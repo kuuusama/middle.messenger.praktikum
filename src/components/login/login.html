@@ -1,8 +1,9 @@
 <div class="login">
     <h1 class="title">Вход</h1>
-    {{>input class="full_width" label="Логин" name="login"}}
-    {{>input class="full_width" label="Пароль" type="password" name="password" }}
+    {{>input class="full_width" label="Логин" name="login"}} {{>input
+    class="full_width" label="Пароль" type="password" name="password" }}
     <div class="spacer"></div>
-    {{>button class="full_width" label='Вход' click="window.app.changeState(2)"}}
-    {{>linkbutton label='Регистрация' click="window.app.changeState(1)"}}
+    {{>button class="full_width" label='Вход'
+    click="window.app.changeState(2)"}} {{>linkbutton label='Регистрация'
+    click="window.app.changeState(1)"}}
 </div>
