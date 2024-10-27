@@ -1,0 +1,15 @@
+<div class="login">
+    <h1 class="title">Регистрация</h1>
+    <form>
+        {{>input class="full_width" label="Почта" name="email"}}
+        {{>input class="full_width" label="Логин" name="login"}}
+        {{>input class="full_width" label="Имя" name="first_name"}}
+        {{>input class="full_width" label="Фамилия" name="second_name"}}
+        {{>input class="full_width" label="Телефон" name="phone"}}
+        {{>input class="full_width" label="Пароль" type="password" name="password" }}
+        {{>input class="full_width" label="Пароль (ещё раз)" type="password" name="password_2" }}
+        <div class="spacer"></div>
+        {{>button class="full_width" label='Регистрация' click="window.app.changeState(0)" id="registerButton"}}
+        {{>linkbutton label='Вход' click="window.app.changeState(0)"}}
+    </form>
+</div>
