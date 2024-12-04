@@ -37,3 +37,4 @@ window.app = {
 };
 
 window.app.changeState(ChatState.LOGIN);
+
