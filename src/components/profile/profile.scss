@@ -1,4 +1,6 @@
-.profile {
+@import '../../shared/styles/const.scss';
+
+.fprofile {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -99,7 +101,7 @@
                 }
 
                 .avatar_dialog {
-                    display: none;
+                    display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
@@ -111,10 +113,6 @@
                     height: 100%;
 
                     background-color: $color_backdrop;
-
-                    &.visible {
-                        display: flex;
-                    }
 
                     .dialog_content {
                         box-sizing: border-box;
@@ -143,17 +141,13 @@
                         }
 
                         .dialog_error {
-                            display: none;
+                            display: block;
                             font-size: 11px;
                             line-height: 11px;
                             font-weight: 500;
 
                             color: $color_error;
                             margin-top: 14px;
-
-                            &.visible {
-                                display: block;
-                            }
                         }
 
                         .dialog_button {
@@ -164,24 +158,16 @@
                             text-align: center;
                             cursor: pointer;
                             margin-bottom: 45px;
-
-                            &.hidden {
-                                display: none;
-                            }
                         }
 
                         .dialog_value {
-                            display: none;
+                            display: block;
                             color: $color_dialog_value;
                             font-size: 14px;
                             line-height: 16px;
                             text-align: center;
                             cursor: pointer;
                             margin-bottom: 61px;
-
-                            &.visible {
-                                display: block;
-                            }
                         }
 
                         .dialog_file {
@@ -202,15 +188,8 @@
                 justify-content: flex-start;
                 align-items: stretch;
 
-                &.hidden {
-                    display: none;
-                }
-
                 &.passwords {
-                    display: none;
-                    &.visible {
-                        display: flex;
-                    }
+                    display: flex;
                 }
 
                 .field,
@@ -220,7 +199,7 @@
                     justify-content: space-between;
                     align-items: center;
 
-                    padding: 10px 0;
+                    padding: 10px 6px;
                     border-bottom: 1px solid $color_border;
 
                     &:last-child {
@@ -236,20 +215,25 @@
                     }
                     .field_value {
                         color: $color_label;
-                        &.hidden {
-                            display: none;
-                        }
                     }
                     .field_input {
+                        display: block;
                         font-size: 13px;
                         line-height: 13px;
                         color: $color_label;
                         text-align: right;
                         border: none;
                         outline: none;
-                        display: none;
-                        &.visible {
-                            display: block;
+                        margin-bottom: 0;
+
+                        .input {
+                            text-align: right;
+                            border-bottom: none;
+                        }
+
+                        .error {
+                            bottom: -8px;
+                            right: 0;
                         }
                     }
                 }
@@ -273,18 +257,8 @@
                 margin-bottom: 50px;
             }
 
-            .buttons {
-                &.hidden {
-                    display: none;
-                }
-            }
-
             .save_button {
-                display: none;
-
-                &.visible {
-                    display: block;
-                }
+                display: block;
             }
         }
     }

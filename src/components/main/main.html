@@ -1,0 +1,25 @@
+<main>
+    {{#ifeq state 0}}
+        <f-login></f-login>
+    {{/ifeq}}
+
+    {{#ifeq state 1}}
+        <f-register></f-register>
+    {{/ifeq}}
+
+    {{#ifeq state 2}}
+        <f-chat></f-chat>
+    {{/ifeq}}
+
+    {{#ifeq state 3}}
+        <f-profile></f-profile>
+    {{/ifeq}}
+
+    {{#ifeq state 4}}
+        <f-notfound></f-notfound>
+    {{/ifeq}}
+
+    {{#ifeq state 5}}
+        <f-servererror></f-servererror>
+    {{/ifeq}}
+</main>

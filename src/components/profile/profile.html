@@ -1,113 +1,7 @@
-<script>
-    function toggleButtons() {
-        const buttons = document.getElementById("buttons");
-        buttons?.classList.toggle("hidden");
-
-        const saveButton = document.getElementById("saveButton");
-        saveButton.classList.toggle("visible");
-    }
-
-    function doEdit() {
-        const values = document.getElementsByClassName("field_value");
-        if (values) {
-            Array.from(values).forEach((v) => v.classList.toggle("hidden"));
-        }
-
-        const inputs = document.getElementsByClassName("field_input");
-        if (inputs) {
-            Array.from(inputs).forEach((v) => v.classList.toggle("visible"));
-        }
-        toggleButtons();
-    }
-
-    function doEditPassword() {
-        const fields = document.getElementById("fields");
-        fields?.classList.toggle("hidden");
-
-        const passwords = document.getElementById("passwords");
-        passwords?.classList.toggle("visible");
-        toggleButtons();
-    }
-
-    function doSave() {
-        const fields = document.getElementById("fields");
-        fields.classList.contains("hidden") ? doEditPassword() : doEdit();
-    }
-
-    function displayAvatarDialog() {
-        const avatarDialog = document.getElementById("avatarDialog");
-        avatarDialog.classList.add("visible");
-    }
-
-    function fileChanged() {
-        const inputFile = document.getElementById("inputFile");
-        if (inputFile) {
-            const filename = inputFile.value.split(/(\\|\/)/).pop();
-
-            const inputFileLabel = document.getElementById("inputFileLabel");
-            const inputFileValue = document.getElementById("inputFileValue");
-            const dialogTitle = document.getElementById("dialogTitle");
-
-            if (filename) {
-                inputFileLabel.classList.add("hidden");
-                inputFileValue.classList.add("visible");
-                inputFileValue.innerText = filename;
-                dialogTitle.innerText = "Файл загружен";
-                const dialogError = document.getElementById("dialogError");
-                dialogError.classList.remove("visible");
-            } else {
-                inputFileLabel.classList.remove("hidden");
-                inputFileValue.classList.remove("visible");
-                inputFileValue.innerText = "";
-                dialogTitle.innerText = "Загрузите файл";
-            }
-        }
-    }
-
-    function doAvatarChange() {
-        const inputFile = document.getElementById("inputFile");
-        if (inputFile) {
-            const filename = inputFile.value.split(/(\\|\/)/).pop();
-
-            const inputFileLabel = document.getElementById("inputFileLabel");
-            const inputFileValue = document.getElementById("inputFileValue");
-            const dialogTitle = document.getElementById("dialogTitle");
-            const dialogError = document.getElementById("dialogError");
-
-            if (filename) {
-                const rnd = Math.random();
-                if (rnd < 0.5) {
-                    dialogError.classList.remove("visible");
-                    dialogTitle.classList.add("red");
-                    dialogTitle.innerText = "Ошибка, попробуйте ещё раз";
-                } else {
-                    inputFileLabel.classList.remove("hidden");
-                    inputFileValue.classList.remove("visible");
-                    inputFileValue.innerText = "";
-                    dialogTitle.innerText = "Загрузите файл";
-
-                    dialogError.classList.remove("visible");
-                    dialogTitle.classList.remove("red");
-                    dialogTitle.innerText = "Загрузите файл";
-
-                    const avatarDialog = document.getElementById("avatarDialog");
-                    avatarDialog.classList.remove("visible");
-                }
-            } else {
-                dialogError.classList.add("visible");
-            }
-        }
-    }
-</script>
-
-<div class="profile">
+<div class="fprofile">
     <div class="profile_back">
-        <button class="back_button" onclick="window.app.changeState(2)">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="14" cy="14" r="14" transform="rotate(-180 14 14)" fill="#3369F3" />
-                <rect x="20" y="14.8" width="11" height="1.6" transform="rotate(-180 20 14.8)" fill="white" />
-                <path d="M13 19L9 14L13 9" stroke="white" stroke-width="1.6" />
-            </svg>
+        <button class="back_button" id="backButton">
+            <img src="assets/back.svg" />
         </button>
     </div>
 
@@ -116,123 +10,164 @@
             <div class="avatar">
                 <div class="avatar_image">
                     <img src="assets/default_avatar.svg" />
-                    <button class="change_avatar" onclick="displayAvatarDialog()">Поменять<br />аватар</button>
+                    <button class="change_avatar" id="displayAvatarDialogButton">Поменять<br />аватар</button>
                 </div>
                 <div class="avatar_name">Иван</div>
 
+                {{#if showAvatarDialog}}
                 <div class="avatar_dialog" id="avatarDialog">
                     <div class="dialog_content">
-                        <h1 class="dialog_title" id="dialogTitle">Загрузите файл</h1>
-                        <form>
-                            <label for="inputFile" class="dialog_button" id="inputFileLabel"
-                                >Выбрать файл на<br />компьютере</label
-                            >
-                            <label for="inputFile" class="dialog_value" id="inputFileValue"></label>
+                        <h1 class="dialog_title">{{dialogTitle}}</h1>
+                        <form id="avatarForm">
+                            {{#if displayInputFileLabel}}
+                            <label for="inputFile" class="dialog_button">Выбрать файл <br>на компьютере</label>
+                            {{/if}}
+                            {{#if inputFileValue}}
+                            <label for="inputFile" class="dialog_value">{{ inputFileValue }}</label>
+                            {{/if}}
                             <input
                                 type="file"
                                 id="inputFile"
                                 class="dialog_file"
-                                oninput="fileChanged(event)"
                                 name="avatar"
                             />
 
-                            {{>button id="avatarSaveButton" label="Поменять" class="dialog_save_button full_width"
-                            click="doAvatarChange()"}}
+                            {{#if inputFileValue}}
+                            <f-button
+                                [id]="avatarSaveButton"
+                                [class]="dialog_save_button full_width"
+                                (click)="doAvatarChange"
+                                [type]="button"
+                            >Поменять</f-button>
+                            {{/if}}
+
                         </form>
-                        <span class="dialog_error" id="dialogError">Нужно выбрать файл</span>
+                        {{#if dialogError}}
+                        <span class="dialog_error">{{dialogError}}</span>
+                        {{/if}}
                     </div>
                 </div>
+                {{/if}}
             </div>
 
+            {{#ifNotBoth editPasswordMode editPasswordMode}}
             <div class="fields" id="fields">
-                <form>
+                <form id="profileForm">
                     <div class="field">
                         <label class="field_label" for="email">Почта</label>
-                        <div class="field_value">pochta@yandex.ru</div>
-                        <input class="field_input" type="email" name="email" placeholder="E-mail" />
+                        {{#if editMode}}
+                            <f-input (blur)="doValidate" [value]="{{user.email}}" [placeholder]="sample@server.ru" [class]="field_input" [type]="text" [name]="email" [placeholder]="E-mail" />
+                        {{else}}
+                            <div class="field_value">{{user.email}}</div>
+                        {{/if}}
                     </div>
 
                     <div class="field">
                         <label class="field_label" for="login">Логин</label>
-                        <div class="field_value">ivanivanov</div>
-                        <input class="field_input" type="text" name="login" placeholder="Логин" />
+                        {{#if editMode}}
+                        <f-input (blur)="doValidate" [value]="{{user.login}}" [placeholder]="Login" [class]="field_input" [type]="text" [name]="login" [placeholder]="Логин" />
+                        {{else}}
+                        <div class="field_value">{{user.login}}</div>
+                        {{/if}}
                     </div>
 
                     <div class="field">
-                        <label class="field_label" for="name">Имя</label>
-                        <div class="field_value">Иван</div>
-                        <input class="field_input" type="text" name="first_name" placeholder="Имя" />
+                        <label class="field_label" for="first_name">Имя</label>
+                        {{#if editMode}}
+                        <f-input (blur)="doValidate" [value]="{{user.first_name}}" [placeholder]="Имя" [class]="field_input" [type]="text" [name]="first_name" [placeholder]="Имя" />
+                        {{else}}
+                        <div class="field_value">{{user.first_name}}</div>
+                        {{/if}}
                     </div>
 
                     <div class="field">
-                        <label class="field_label" for="surname">Фамилия</label>
-                        <div class="field_value">Иванов</div>
-                        <input class="field_input" type="text" name="second_name" placeholder="Фамилия" />
+                        <label class="field_label" for="second_name">Фамилия</label>
+                        {{#if editMode}}
+                        <f-input (blur)="doValidate" [value]="{{user.second_name}}" [placeholder]="Фамилия" [class]="field_input" [type]="text" [name]="second_name" [placeholder]="Фамилия" />
+                        {{else}}
+                        <div class="field_value">{{user.second_name}}</div>
+                        {{/if}}
                     </div>
 
                     <div class="field">
-                        <label class="field_label" for="chatname">Имя в чате</label>
-                        <div class="field_value">Иван</div>
-                        <input class="field_input" type="txt" name="display_name" placeholder="Имя в чате" />
+                        <label class="field_label" for="display_name">Имя в чате</label>
+                        {{#if editMode}}
+                        <f-input (blur)="doValidate" [value]="{{user.display_name}}" [placeholder]="Имя в чате" [class]="field_input" [type]="txt" [name]="display_name" [placeholder]="Имя в чате" />
+                        {{else}}
+                        <div class="field_value">{{user.display_name}}</div>
+                        {{/if}}
                     </div>
 
                     <div class="field">
                         <label class="field_label" for="phone">Телефон</label>
-                        <div class="field_value">+7 (909) 967 30 30</div>
-                        <input class="field_input" type="text" name="phone" placeholder="Телефон" />
+                        {{#if editMode}}
+                        <f-input (blur)="doValidate" [value]="{{user.phone}}" [placeholder]="+7123456789" [class]="field_input" [type]="text" [name]="phone" [placeholder]="Телефон" />
+                        {{else}}
+                        <div class="field_value">{{user.phone}}</div>
+                        {{/if}}
                     </div>
                 </form>
             </div>
+            {{/ifNotBoth}}
 
+            {{#if editPasswordMode}}
             <div class="fields passwords" id="passwords">
-                <form>
+                <form id="passwordForm">
                     <div class="field">
-                        <label class="field_label" for="old_password">Старый пароль</label>
-                        <input
-                            class="field_input visible"
-                            type="password"
-                            name="oldPassword"
-                            placeholder="Старый пароль"
+                        <label class="field_label" for="oldPassword">Старый пароль</label>
+                        <f-input
+                            (blur)="doValidate"
+                            [class]="field_input visible"
+                            [type]="password"
+                            [name]="oldPassword"
+                            [placeholder]="Старый пароль"
                         />
                     </div>
 
                     <div class="field">
-                        <label class="field_label" for="new_password">Новый пароль</label>
-                        <input
-                            class="field_input visible"
-                            type="password"
-                            name="newPassword"
-                            placeholder="Новый пароль"
+                        <label class="field_label" for="newPassword">Новый пароль</label>
+                        <f-input
+                            (blur)="doValidate"
+                            [class]="field_input"
+                            [type]="password"
+                            [name]="password"
+                            [placeholder]="Новый пароль"
                         />
                     </div>
 
                     <div class="field">
-                        <label class="field_label" for="new_password2">Новый пароль</label>
-                        <input
-                            class="field_input visible"
-                            type="password"
-                            name="newPassword"
-                            placeholder="Новый пароль повторно"
+                        <label class="field_label" for="newPassword2">Новый пароль</label>
+                        <f-input
+                            (blur)="doValidate"
+                            [class]="field_input"
+                            [type]="password"
+                            [name]="password2"
+                            [placeholder]="Новый пароль повторно"
                         />
                     </div>
                 </form>
             </div>
+            {{/if}}
 
+            {{#ifNotBoth editMode editPasswordMode}}
             <div class="buttons" id="buttons">
                 <div class="button_container">
-                    <button class="profile_button" onclick="doEdit()">Изменить данные</button>
+                    <f-linkbutton [class]="profile_button" (click)="doEdit">Изменить данные</f-linkbutton>
                 </div>
 
                 <div class="button_container">
-                    <button class="profile_button" onclick="doEditPassword()">Изменить пароль</button>
+                    <f-linkbutton [class]="profile_button" (click)="doEditPassword">Изменить пароль</f-linkbutton>
                 </div>
 
                 <div class="button_container">
-                    <button class="profile_button red" onclick="window.app.changeState(0)">Выйти</button>
+                    <f-linkbutton [class]="profile_button red" (click)="doExit">Выйти</f-linkbutton>
                 </div>
             </div>
+            {{/ifNotBoth}}
 
-            {{>button id="saveButton" label="Сохранить" class="save_button" click="doSave()"}}
+            {{#ifor editMode editPasswordMode}}
+            <f-button [id]="saveButton" [class]="save_button" (click)="doSave">Сохранить</f-button>
+            {{/ifor}}
         </div>
     </div>
 </div>
