@@ -1,7 +1,7 @@
 export class Message {
-    text: string = '';
+    text: string = "";
     date: Date = new Date();
-    time: string = '';
+    time: string = "";
     read: boolean = false;
     my: boolean = false;
 
@@ -10,13 +10,11 @@ export class Message {
     }
 
     get dateDay() {
-        const dateString = this.date.toLocaleString('ru',{day: '2-digit', month: 'long', year: 'numeric'});
+        const dateString = this.date.toLocaleString("ru", { day: "2-digit", month: "long", year: "numeric" });
         return dateString.substring(0, dateString.length - 3);
     }
 
-    constructor(data: {
-        text: string, date: string, read: boolean, my: boolean
-    }) {
+    constructor(data: { text: string; date: string; read: boolean; my: boolean }) {
         this.text = data.text;
         this.read = data.read;
         this.my = data.my;

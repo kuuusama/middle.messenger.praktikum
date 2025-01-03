@@ -4,13 +4,13 @@ import { Component } from "../../framework/decorators";
 import Validator from "../../framework/validator";
 import User from "../../shared/models/user";
 import { ChatState } from "../main/main";
-import { default as template } from './profile.html?raw';
-import './profile.scss';
+import { default as template } from "./profile.html?raw";
+import "./profile.scss";
 
 @Component({
-    tagName: 'div',
+    tagName: "div",
     template: template,
-    selector: 'f-profile'
+    selector: "f-profile",
 })
 export class FProfile extends BaseComponent {
     showAvatarDialog: boolean = false;
@@ -22,23 +22,23 @@ export class FProfile extends BaseComponent {
     dialogError: string = "Нужно выбрать файл";
 
     user: User = {
-        email: 'ipetrov@mail.fi',
-        login: 'IPetroff',
-        first_name: 'Иван',
-        second_name: 'Петров',
-        display_name: 'iPetroff',
-        phone: '+7123456780',
-        avatar: '',
-    }
+        email: "ipetrov@mail.fi",
+        login: "IPetroff",
+        first_name: "Иван",
+        second_name: "Петров",
+        display_name: "iPetroff",
+        phone: "+7123456780",
+        avatar: "",
+    };
 
     goBack() {
-        Broadcast.i.emit('changestate', ChatState.CHAT);
+        Broadcast.i.emit("changestate", ChatState.CHAT);
     }
 
     doExit() {
-        Broadcast.i.emit('changestate', ChatState.LOGIN);
+        Broadcast.i.emit("changestate", ChatState.LOGIN);
     }
-    
+
     doEdit(): void {
         this.proxy.editMode = true;
     }
@@ -49,18 +49,18 @@ export class FProfile extends BaseComponent {
     }
 
     doSave(): void {
-        const form = document.querySelector(this.editMode ? '#profileForm' :  '#passwordForm') as HTMLFormElement;
+        const form = document.querySelector(this.editMode ? "#profileForm" : "#passwordForm") as HTMLFormElement;
         const formData = new FormData(form);
         if (Validator.validateForm(form)) {
             if (this.editMode) {
                 for (let key of formData.keys()) {
-                    this.user[key] = formData.get(key)?.toString() || '';
+                    this.user[key] = formData.get(key)?.toString() || "";
                 }
-                console.log('New user data:');
+                console.log("New user data:");
                 console.log(this.user);
                 this.proxy.editMode = false;
             } else {
-                const newPassword = formData.get('password');
+                const newPassword = formData.get("password");
                 //TODO: send new password hash to server
                 this.proxy.editPasswordMode = false;
             }
@@ -113,10 +113,10 @@ export class FProfile extends BaseComponent {
     }
 
     listeners = [
-        { elementId: 'backButton', eventName: 'click', listener: this.goBack },
-        { elementId: 'displayAvatarDialogButton', eventName: 'click', listener: this.displayAvatarDialog },
-        { elementId: 'inputFile', eventName: 'input', listener: this.fileChanged },
-    ]
+        { elementId: "backButton", eventName: "click", listener: this.goBack },
+        { elementId: "displayAvatarDialogButton", eventName: "click", listener: this.displayAvatarDialog },
+        { elementId: "inputFile", eventName: "input", listener: this.fileChanged },
+    ];
 
     constructor() {
         super();

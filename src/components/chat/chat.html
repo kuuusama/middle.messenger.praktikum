@@ -12,86 +12,83 @@
 
         <div class="contacts">
             {{#each contacts}}
-                <f-contact [contact]='{{{json this}}}' ></f-contact>
+            <f-contact [contact]="{{{json this}}}"></f-contact>
             {{/each}}
         </div>
     </div>
 
     <div class="right">
         {{#if activeContact }}
-            <div class="top">
-                <div class="active_contact">
-                    <div class="avatar"> <img src="{{activeContact.avatar}}"> </div>
-                    <div class="name">{{ activeContact.name }}</div>
-                </div>
+        <div class="top">
+            <div class="active_contact">
+                <div class="avatar"><img src="{{activeContact.avatar}}" /></div>
+                <div class="name">{{ activeContact.name }}</div>
+            </div>
 
-                {{#if displayUserMenu}}
-                <div class="menu user_menu">
-                    <button class="menu_item" id="addUserButton">
-                        <img src="assets/plus.svg" alt="Plus icon">
-                        <span>Добавить пользователя</span>
-                    </button>
-
-                    <button class="menu_item" id="deleteUserButton">
-                        <img src="assets/minus.svg" alt="Minus icon">
-                        <span>Удалить пользователя</span>
-                    </button>
-
-                    <button class="menu_item" id="deleteChatButton">
-                        <img src="assets/delete.svg" alt="Delete icon">
-                        <span>Удалить чат</span>
-                    </button>
-                </div>
-                {{/if}}
-
-                <button class="menu_button" id="userMenuButton">
-                    <svg width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="1.5" cy="2" r="1.5" />
-                        <circle cx="1.5" cy="8" r="1.5" />
-                        <circle cx="1.5" cy="14" r="1.5" />
-                    </svg>
+            {{#if displayUserMenu}}
+            <div class="menu user_menu">
+                <button class="menu_item" id="addUserButton">
+                    <img src="assets/plus.svg" alt="Plus icon" />
+                    <span>Добавить пользователя</span>
                 </button>
 
-                {{#if displayUserDialog}}
-                <div class="user_dialog">
-                    <div class="dialog_content">
-                        <h1 class="dialog_title">
-                            {{#if addUserMode}}
-                            <span id="addSpan">Добавить</span>
-                            {{else}}
-                            <span id="delSpan">Удалить</span> пользователя
-                            {{/if}}
-                        </h1>
-                        {{#if addUserMode}}
-                        <f-input [class]="full_width" [label]="Логин" [name]="login"></f-input>
-                        <f-button [class]="full_width" (click)="doAddUser">Добавить</f-button>
-                        {{else}}
-                        <f-button [class]="full_width" (click)="doDeleteUser">Удалить</f-button>
-                        {{/if}}
-                    </div>
-                </div>
-                {{/if}}
+                <button class="menu_item" id="deleteUserButton">
+                    <img src="assets/minus.svg" alt="Minus icon" />
+                    <span>Удалить пользователя</span>
+                </button>
 
-                {{#if displayChatDialog}}
-                <div class="user_dialog">
-                    <div class="dialog_content">
-                        <div class="dialog_title">Удалить текущий чат?</div>
-                        <f-button [class]="full_width" (click)="doDeleteChat" [id]="delChatButton">Удалить</f-button>
-                        <f-linkbutton (click)="doNotDeleteChat">Оставить</f-linkbutton>
-                    </div>
-                </div>
-                {{/if}}
+                <button class="menu_item" id="deleteChatButton">
+                    <img src="assets/delete.svg" alt="Delete icon" />
+                    <span>Удалить чат</span>
+                </button>
             </div>
+            {{/if}}
+
+            <button class="menu_button" id="userMenuButton">
+                <svg width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="1.5" cy="2" r="1.5" />
+                    <circle cx="1.5" cy="8" r="1.5" />
+                    <circle cx="1.5" cy="14" r="1.5" />
+                </svg>
+            </button>
+
+            {{#if displayUserDialog}}
+            <div class="user_dialog">
+                <div class="dialog_content">
+                    <h1 class="dialog_title">
+                        {{#if addUserMode}}
+                        <span id="addSpan">Добавить</span>
+                        {{else}}
+                        <span id="delSpan">Удалить</span> пользователя {{/if}}
+                    </h1>
+                    {{#if addUserMode}}
+                    <f-input [class]="full_width" [label]="Логин" [name]="login"></f-input>
+                    <f-button [class]="full_width" (click)="doAddUser">Добавить</f-button>
+                    {{else}}
+                    <f-button [class]="full_width" (click)="doDeleteUser">Удалить</f-button>
+                    {{/if}}
+                </div>
+            </div>
+            {{/if}} {{#if displayChatDialog}}
+            <div class="user_dialog">
+                <div class="dialog_content">
+                    <div class="dialog_title">Удалить текущий чат?</div>
+                    <f-button [class]="full_width" (click)="doDeleteChat" [id]="delChatButton">Удалить</f-button>
+                    <f-linkbutton (click)="doNotDeleteChat">Оставить</f-linkbutton>
+                </div>
+            </div>
+            {{/if}}
+        </div>
         {{/if}}
 
         <div class="conversation">
             {{#each currentConversation}}
-                <div class="day">
-                    <div class="date">{{this.date}}</div>
-                    {{#each this.messages}}
-                        <f-message [message]='{{{json this}}}'></f-message>
-                    {{/each}}
-                </div>
+            <div class="day">
+                <div class="date">{{this.date}}</div>
+                {{#each this.messages}}
+                <f-message [message]="{{{json this}}}"></f-message>
+                {{/each}}
+            </div>
             {{/each}}
         </div>
 
@@ -99,17 +96,17 @@
             {{#if displayAttachMenu}}
             <div class="menu attach_menu" id="attachMenu">
                 <button class="menu_item" id="attachImageButton">
-                    <img src="assets/attachImage.svg">
+                    <img src="assets/attachImage.svg" />
                     <span>Фото или видео</span>
                 </button>
 
                 <button class="menu_item" id="attachFileButton">
-                    <img src="assets/attachFile.svg">
+                    <img src="assets/attachFile.svg" />
                     <span>Файл</span>
                 </button>
 
                 <button class="menu_item" id="attachLocationButton">
-                    <img src="assets/attachLocation.svg">
+                    <img src="assets/attachLocation.svg" />
                     <span>Локация</span>
                 </button>
             </div>

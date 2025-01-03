@@ -1,12 +1,12 @@
 import { Message } from "../../shared/models/message";
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Component } from "../../framework/decorators";
-import { default as template } from './message.html?raw';
+import { default as template } from "./message.html?raw";
 import "./message.scss";
 
 @Component({
-    selector: 'f-message',
-    tagName: 'div',
+    selector: "f-message",
+    tagName: "div",
     template: template,
 })
 export class FMessage extends BaseComponent {

@@ -18,7 +18,7 @@ const appComponents = {
     FChat,
     FMessage,
     FContact,
-    init: () => {}
+    init: () => {},
 };
 
 export default appComponents;

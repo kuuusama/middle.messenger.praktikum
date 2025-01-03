@@ -1,11 +1,11 @@
 import { BaseComponent, EVENTS } from "../../../framework/basecomponent";
 import { Component } from "../../../framework/index";
-import { default as template } from './input.html?raw';
-import './input.scss';
+import { default as template } from "./input.html?raw";
+import "./input.scss";
 
 @Component({
-    selector: 'f-input',
-    tagName: 'div',
+    selector: "f-input",
+    tagName: "div",
     template: template,
 })
 export class FInput extends BaseComponent {
@@ -18,6 +18,6 @@ export class FInput extends BaseComponent {
 
     constructor() {
         super();
-        this.eventBus.emit(EVENTS.INIT)
+        this.eventBus.emit(EVENTS.INIT);
     }
 }

@@ -1,4 +1,4 @@
-@import '../../shared/styles/const.scss';
+@import "../../shared/styles/const.scss";
 
 .fchat {
     display: contents;
@@ -212,7 +212,7 @@
         .conversation {
             padding-top: 48px;
             flex-grow: 1;
-            
+
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -230,7 +230,6 @@
                 font-size: 12px;
                 line-height: 12px;
             }
-
         }
         .bottom {
             display: flex;

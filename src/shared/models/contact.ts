@@ -10,7 +10,7 @@ export class Contact {
     selected: boolean;
     lastMessageYours: boolean;
     lastMessageDate: Date = new Date();
-    history: Array<Message> = []
+    history: Array<Message> = [];
 
     private get dateHM() {
         return `${this.lastMessageDate.getHours()}:${this.lastMessageDate.getMinutes()}`;
@@ -31,7 +31,7 @@ export class Contact {
         this.avatar = data.avatar;
         this.name = data.name;
         this.lastMessage = data.lastMessage;
-        this.unreadMessages = data.unreadMessages
+        this.unreadMessages = data.unreadMessages;
         this.lastMessageDate = new Date(data.lastMessageDate);
         this.lastMessageTime = this.dateHM; //Handlebars won't call this due to security restrictions
         this.selected = data.selected ?? false;

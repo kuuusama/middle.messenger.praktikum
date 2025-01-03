@@ -8,7 +8,7 @@ const frameworkComponents = {
     FLinkButton,
     FLink,
     FInput,
-    init: () => {}
+    init: () => {},
 };
 
 export default frameworkComponents;

@@ -1,8 +1,8 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Component } from "../../framework/decorators";
 import { Broadcast } from "../../framework/broadcast";
-import { default as template } from './main.html?raw';
-import './main.scss';
+import { default as template } from "./main.html?raw";
+import "./main.scss";
 
 export enum ChatState {
     LOGIN = 0,
@@ -14,9 +14,9 @@ export enum ChatState {
 }
 
 @Component({
-    tagName: 'div',
+    tagName: "div",
     template: template,
-    selector: 'f-main',
+    selector: "f-main",
 })
 export class FMain extends BaseComponent {
     state: ChatState = ChatState.LOGIN;
@@ -24,7 +24,7 @@ export class FMain extends BaseComponent {
     constructor() {
         super();
 
-        Broadcast.i.on('changestate', (state: ChatState) => {
+        Broadcast.i.on("changestate", (state: ChatState) => {
             this.proxy.state = state;
         });
 

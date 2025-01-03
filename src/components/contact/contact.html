@@ -1,12 +1,11 @@
 <div class="contact {{#if cnt.selected}} selected {{/if}}">
-    <div class="avatar"><img src='{{ cnt.avatar }}'></div>
+    <div class="avatar"><img src="{{ cnt.avatar }}" /></div>
     <div class="main">
         <div class="name">{{ cnt.name }}</div>
         <div class="lastmessage">
             {{#if cnt.lastMessageYours}}
-                <span class="you">Вы:</span>
-            {{/if}}
-            {{ cnt.lastMessage }}
+            <span class="you">Вы:</span>
+            {{/if}} {{ cnt.lastMessage }}
         </div>
     </div>
     <div class="indicators">

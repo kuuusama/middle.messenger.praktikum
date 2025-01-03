@@ -5,7 +5,7 @@ export class Broadcast {
     private eventBus: EventBus;
 
     public static get i(): Broadcast {
-        return this._instance || (this._instance = new this)
+        return this._instance || (this._instance = new this());
     }
 
     public on(event: string, callback: Function) {

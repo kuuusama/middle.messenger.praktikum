@@ -2,7 +2,14 @@
     <h1 class="title">Вход</h1>
     <form id="loginForm">
         <f-input (blur)="doValidate" [class]="full_width" [label]="Логин" [name]="login" [id]="iLogin"></f-input>
-        <f-input (blur)="doValidate" [class]="full_width" [label]="Пароль" [type]="password" [name]="password" [id]="iPwd"></f-input>
+        <f-input
+            (blur)="doValidate"
+            [class]="full_width"
+            [label]="Пароль"
+            [type]="password"
+            [name]="password"
+            [id]="iPwd"
+        ></f-input>
         <div class="spacer"></div>
         <f-button [class]="full_width" (click)="doLogin" [id]="btn1" [type]="button">Вход</f-button>
         <f-linkbutton (click)="doRegister" [type]="button" [id]="btn2">Регистрация</f-linkbutton>

@@ -20,17 +20,11 @@
                         <h1 class="dialog_title">{{dialogTitle}}</h1>
                         <form id="avatarForm">
                             {{#if displayInputFileLabel}}
-                            <label for="inputFile" class="dialog_button">Выбрать файл <br>на компьютере</label>
-                            {{/if}}
-                            {{#if inputFileValue}}
+                            <label for="inputFile" class="dialog_button">Выбрать файл <br />на компьютере</label>
+                            {{/if}} {{#if inputFileValue}}
                             <label for="inputFile" class="dialog_value">{{ inputFileValue }}</label>
                             {{/if}}
-                            <input
-                                type="file"
-                                id="inputFile"
-                                class="dialog_file"
-                                name="avatar"
-                            />
+                            <input type="file" id="inputFile" class="dialog_file" name="avatar" />
 
                             {{#if inputFileValue}}
                             <f-button
@@ -38,9 +32,9 @@
                                 [class]="dialog_save_button full_width"
                                 (click)="doAvatarChange"
                                 [type]="button"
-                            >Поменять</f-button>
+                                >Поменять</f-button
+                            >
                             {{/if}}
-
                         </form>
                         {{#if dialogError}}
                         <span class="dialog_error">{{dialogError}}</span>
@@ -56,16 +50,32 @@
                     <div class="field">
                         <label class="field_label" for="email">Почта</label>
                         {{#if editMode}}
-                            <f-input (blur)="doValidate" [value]="{{user.email}}" [placeholder]="sample@server.ru" [class]="field_input" [type]="text" [name]="email" [placeholder]="E-mail" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.email}}"
+                            [placeholder]="sample@server.ru"
+                            [class]="field_input"
+                            [type]="text"
+                            [name]="email"
+                            [placeholder]="E-mail"
+                        />
                         {{else}}
-                            <div class="field_value">{{user.email}}</div>
+                        <div class="field_value">{{user.email}}</div>
                         {{/if}}
                     </div>
 
                     <div class="field">
                         <label class="field_label" for="login">Логин</label>
                         {{#if editMode}}
-                        <f-input (blur)="doValidate" [value]="{{user.login}}" [placeholder]="Login" [class]="field_input" [type]="text" [name]="login" [placeholder]="Логин" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.login}}"
+                            [placeholder]="Login"
+                            [class]="field_input"
+                            [type]="text"
+                            [name]="login"
+                            [placeholder]="Логин"
+                        />
                         {{else}}
                         <div class="field_value">{{user.login}}</div>
                         {{/if}}
@@ -74,7 +84,15 @@
                     <div class="field">
                         <label class="field_label" for="first_name">Имя</label>
                         {{#if editMode}}
-                        <f-input (blur)="doValidate" [value]="{{user.first_name}}" [placeholder]="Имя" [class]="field_input" [type]="text" [name]="first_name" [placeholder]="Имя" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.first_name}}"
+                            [placeholder]="Имя"
+                            [class]="field_input"
+                            [type]="text"
+                            [name]="first_name"
+                            [placeholder]="Имя"
+                        />
                         {{else}}
                         <div class="field_value">{{user.first_name}}</div>
                         {{/if}}
@@ -83,7 +101,15 @@
                     <div class="field">
                         <label class="field_label" for="second_name">Фамилия</label>
                         {{#if editMode}}
-                        <f-input (blur)="doValidate" [value]="{{user.second_name}}" [placeholder]="Фамилия" [class]="field_input" [type]="text" [name]="second_name" [placeholder]="Фамилия" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.second_name}}"
+                            [placeholder]="Фамилия"
+                            [class]="field_input"
+                            [type]="text"
+                            [name]="second_name"
+                            [placeholder]="Фамилия"
+                        />
                         {{else}}
                         <div class="field_value">{{user.second_name}}</div>
                         {{/if}}
@@ -92,7 +118,15 @@
                     <div class="field">
                         <label class="field_label" for="display_name">Имя в чате</label>
                         {{#if editMode}}
-                        <f-input (blur)="doValidate" [value]="{{user.display_name}}" [placeholder]="Имя в чате" [class]="field_input" [type]="txt" [name]="display_name" [placeholder]="Имя в чате" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.display_name}}"
+                            [placeholder]="Имя в чате"
+                            [class]="field_input"
+                            [type]="txt"
+                            [name]="display_name"
+                            [placeholder]="Имя в чате"
+                        />
                         {{else}}
                         <div class="field_value">{{user.display_name}}</div>
                         {{/if}}
@@ -101,16 +135,22 @@
                     <div class="field">
                         <label class="field_label" for="phone">Телефон</label>
                         {{#if editMode}}
-                        <f-input (blur)="doValidate" [value]="{{user.phone}}" [placeholder]="+7123456789" [class]="field_input" [type]="text" [name]="phone" [placeholder]="Телефон" />
+                        <f-input
+                            (blur)="doValidate"
+                            [value]="{{user.phone}}"
+                            [placeholder]="+7123456789"
+                            [class]="field_input"
+                            [type]="text"
+                            [name]="phone"
+                            [placeholder]="Телефон"
+                        />
                         {{else}}
                         <div class="field_value">{{user.phone}}</div>
                         {{/if}}
                     </div>
                 </form>
             </div>
-            {{/ifNotBoth}}
-
-            {{#if editPasswordMode}}
+            {{/ifNotBoth}} {{#if editPasswordMode}}
             <div class="fields passwords" id="passwords">
                 <form id="passwordForm">
                     <div class="field">
@@ -147,9 +187,7 @@
                     </div>
                 </form>
             </div>
-            {{/if}}
-
-            {{#ifNotBoth editMode editPasswordMode}}
+            {{/if}} {{#ifNotBoth editMode editPasswordMode}}
             <div class="buttons" id="buttons">
                 <div class="button_container">
                     <f-linkbutton [class]="profile_button" (click)="doEdit">Изменить данные</f-linkbutton>
@@ -163,9 +201,7 @@
                     <f-linkbutton [class]="profile_button red" (click)="doExit">Выйти</f-linkbutton>
                 </div>
             </div>
-            {{/ifNotBoth}}
-
-            {{#ifor editMode editPasswordMode}}
+            {{/ifNotBoth}} {{#ifor editMode editPasswordMode}}
             <f-button [id]="saveButton" [class]="save_button" (click)="doSave">Сохранить</f-button>
             {{/ifor}}
         </div>

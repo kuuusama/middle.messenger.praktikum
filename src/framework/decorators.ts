@@ -11,18 +11,18 @@ export interface ICallbackOptions {
 }
 
 export function Component(options: IComponentConfig) {
-    return function(constructor: CustomElementConstructor) {
+    return function (constructor: CustomElementConstructor) {
         constructor.prototype.template = options.template;
         constructor.prototype._meta = {
-            tagName: options.tagName ?? 'div',
+            tagName: options.tagName ?? "div",
             ...(options.selector && {
-                selector: options.selector
+                selector: options.selector,
             }),
             props: {
-                events: {}
-            }
+                events: {},
+            },
         };
 
         window.customElements.define(options.selector, constructor);
-    }
+    };
 }

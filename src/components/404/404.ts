@@ -2,17 +2,17 @@ import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
 import { ChatState } from "../main/main";
-import { default as template } from './404.html?raw';
-import './404.scss';
+import { default as template } from "./404.html?raw";
+import "./404.scss";
 
 @Component({
-    tagName: 'div',
+    tagName: "div",
     template: template,
-    selector: 'f-notfound'
+    selector: "f-notfound",
 })
 export class FNotFound extends BaseComponent {
     returnToChat() {
-        Broadcast.i.emit('changestate', ChatState.CHAT);
+        Broadcast.i.emit("changestate", ChatState.CHAT);
     }
 
     constructor() {

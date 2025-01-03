@@ -6,8 +6,20 @@
         <f-input (blur)="doValidate" [class]="full_width" [label]="Имя" [name]="first_name"></f-input>
         <f-input (blur)="doValidate" [class]="full_width" [label]="Фамилия" [name]="second_name"></f-input>
         <f-input (blur)="doValidate" [class]="full_width" [label]="Телефон" [name]="phone"></f-input>
-        <f-input (blur)="doValidate" [class]="full_width" [label]="Пароль" [type]="password" [name]="password" ></f-input>
-        <f-input (blur)="doValidate" [class]="full_width" [label]="Пароль (ещё раз)" [type]="password" [name]="password2" ></f-input>
+        <f-input
+            (blur)="doValidate"
+            [class]="full_width"
+            [label]="Пароль"
+            [type]="password"
+            [name]="password"
+        ></f-input>
+        <f-input
+            (blur)="doValidate"
+            [class]="full_width"
+            [label]="Пароль (ещё раз)"
+            [type]="password"
+            [name]="password2"
+        ></f-input>
         <div class="spacer"></div>
         <f-button [id]="btn1" [class]="full_width" (click)="doRegister" [type]="button">Регистрация</f-button>
         <f-linkbutton [id]="btn2" (click)="doLogin" [type]="button">Вход</f-linkbutton>
