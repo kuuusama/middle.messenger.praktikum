@@ -12,7 +12,7 @@
 
         <div class="contacts">
             {{#each contacts}}
-            <f-contact [contact]="{{{json this}}}"></f-contact>
+            <f-contact [contact]="{{json this}}"></f-contact>
             {{/each}}
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="day">
                 <div class="date">{{this.date}}</div>
                 {{#each this.messages}}
-                <f-message [message]="{{{json this}}}"></f-message>
+                <f-message [message]="{{json this}}"></f-message>
                 {{/each}}
             </div>
             {{/each}}
@@ -118,11 +118,11 @@
                 </svg>
             </button>
 
-            <form id="phraseForm">
+            <form id="phraseForm" class="phrase_form" autocomplete="off">
                 <input class="phrase" type="text" placeholder="Сообщение" name="message" id="phraseInput" />
             </form>
 
-            <button class="round" id="sendButton">
+            <button class="round" type="submit" form="phraseForm">
                 <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect y="5.19995" width="11" height="1.6" fill="white" />
                     <path d="M7 1L11 6L7 11" stroke="white" stroke-width="1.6" />

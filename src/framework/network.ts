@@ -1,14 +1,15 @@
+import User from "../shared/models/user";
 import { HTTP } from "./http";
 
 export class NetworkService {
     private baseUrl: string = "https://ya-praktikum.tech/api/v2";
 
-    signin(payload: { login: string; pwd: string }) {
+    signin(payload: { login: string; password: string }) {
         const options = { data: payload };
         return HTTP.i.post(`${this.baseUrl}/signin`, options);
     }
 
-    signup(payload: any) {
+    signup(payload: User) {
         const options = { data: payload };
         return HTTP.i.post(`${this.baseUrl}/signup`, options);
     }

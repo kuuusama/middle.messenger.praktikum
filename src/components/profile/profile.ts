@@ -28,6 +28,7 @@ export class FProfile extends BaseComponent {
         second_name: "Петров",
         display_name: "iPetroff",
         phone: "+7123456780",
+        password: "QWW123456",
         avatar: "",
     };
 
@@ -40,7 +41,10 @@ export class FProfile extends BaseComponent {
     }
 
     doEdit(): void {
+        this.editPasswordMode = false;
         this.proxy.editMode = true;
+
+        console.log(`editMode: ${this.editMode}`);
     }
 
     doEditPassword(): void {
@@ -48,23 +52,32 @@ export class FProfile extends BaseComponent {
         this.proxy.editPasswordMode = true;
     }
 
-    doSave(): void {
-        const form = document.querySelector(this.editMode ? "#profileForm" : "#passwordForm") as HTMLFormElement;
+    doSave(event: Event): boolean {
+        event.preventDefault();
+        const form = document.querySelector("#profileForm") as HTMLFormElement;
         const formData = new FormData(form);
         if (Validator.validateForm(form)) {
-            if (this.editMode) {
-                for (let key of formData.keys()) {
-                    this.user[key] = formData.get(key)?.toString() || "";
-                }
-                console.log("New user data:");
-                console.log(this.user);
-                this.proxy.editMode = false;
-            } else {
-                const newPassword = formData.get("password");
-                //TODO: send new password hash to server
-                this.proxy.editPasswordMode = false;
+            for (const key of formData.keys()) {
+                this.user[key] = formData.get(key)?.toString() || "";
             }
+            console.log("New user data:");
+            console.log(this.user);
+            this.proxy.editMode = false;
         }
+        return false;
+    }
+
+    doSavePassword(event: Event): boolean {
+        event.preventDefault();
+        const form = document.querySelector("#passwordForm") as HTMLFormElement;
+        const formData = new FormData(form);
+        if (Validator.validateForm(form)) {
+            const newPassword = formData.get("password");
+            console.log(`New password is: ${newPassword}`);
+            //TODO: send new password hash to server
+            this.proxy.editPasswordMode = false;
+        }
+        return false;
     }
 
     displayAvatarDialog(): void {
@@ -73,7 +86,7 @@ export class FProfile extends BaseComponent {
 
     fileChanged(): void {
         const inputFile = document.getElementById("inputFile");
-        if (inputFile) {
+        if (inputFile instanceof HTMLInputElement) {
             const filename = inputFile.value.split(/(\\|\/)/).pop();
 
             if (filename) {
@@ -116,6 +129,8 @@ export class FProfile extends BaseComponent {
         { elementId: "backButton", eventName: "click", listener: this.goBack },
         { elementId: "displayAvatarDialogButton", eventName: "click", listener: this.displayAvatarDialog },
         { elementId: "inputFile", eventName: "input", listener: this.fileChanged },
+        { elementId: "profileForm", eventName: "submit", listener: this.doSave },
+        { elementId: "passwordForm", eventName: "submit", listener: this.doSavePassword },
     ];
 
     constructor() {

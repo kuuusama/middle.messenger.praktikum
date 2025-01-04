@@ -7,45 +7,48 @@ export enum METHODS {
 
 export interface IOptions {
     headers?: {
-        [key: string]: any;
+        [key: string]: string;
     };
     method?: METHODS;
     timeout?: number;
-    data?: Object & {
-        [key: string]: any;
+    data?: object & {
+        [key: string]: string;
     };
+    tries?: number;
 }
 
-function queryStringify(data: Object & { [key: string]: any }) {
+function queryStringify(data: object & { [key: string]: string | number | boolean }) {
     if (typeof data !== "object") {
         throw new Error("Data must be object");
     }
 
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
-        return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
+        const safeValue = encodeURIComponent(data[key]);
+        console.log(safeValue);
+        return `${result}${key}=${safeValue}${index < keys.length - 1 ? "&" : ""}`;
     }, "?");
 }
 
 export class HTTP {
-    get(url: string, options = { timeout: 5000 }) {
-        return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    get(url: string, options = { timeout: 5000 }): Promise<unknown> {
+        return this.request(url, { ...options, method: METHODS.GET });
     }
 
-    post(url: string, options: IOptions = { timeout: 5000 }) {
-        return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    post(url: string, options: IOptions = { timeout: 5000 }): Promise<unknown> {
+        return this.request(url, { ...options, method: METHODS.POST });
     }
 
-    put(url: string, options = { timeout: 5000 }) {
-        return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    put(url: string, options = { timeout: 5000 }): Promise<unknown> {
+        return this.request(url, { ...options, method: METHODS.PUT });
     }
 
-    delete(url: string, options = { timeout: 5000 }) {
-        return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    delete(url: string, options = { timeout: 5000 }): Promise<unknown> {
+        return this.request(url, { ...options, method: METHODS.DELETE });
     }
 
-    request(url: string, options: IOptions = {}, timeout = 5000) {
-        const { headers = {}, method, data } = options;
+    request(url: string, options: IOptions = {}): Promise<unknown> {
+        const { headers = {}, method, data, timeout } = options;
 
         return new Promise(function (resolve, reject) {
             if (!method) {
@@ -73,7 +76,7 @@ export class HTTP {
             xhr.onabort = reject;
             xhr.onerror = reject;
 
-            xhr.timeout = timeout;
+            xhr.timeout = timeout || 5000;
             xhr.ontimeout = reject;
 
             if (isGet || !data) {
@@ -84,7 +87,7 @@ export class HTTP {
         });
     }
 
-    requestWithRetry(url: string, options: { [key: string]: any } = {}): Promise<unknown> {
+    requestWithRetry(url: string, options: IOptions): Promise<unknown> {
         const { tries = 1 } = options;
 
         function onError(err: string) {

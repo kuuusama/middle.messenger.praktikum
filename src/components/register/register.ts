@@ -3,6 +3,7 @@ import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
 import { NetworkService } from "../../framework/network";
 import Validator from "../../framework/validator";
+import User from "../../shared/models/user";
 import { ChatState } from "../main/main";
 import { default as template } from "./register.html?raw";
 import "./register.scss";
@@ -19,16 +20,19 @@ export class FRegister extends BaseComponent {
         Broadcast.i.emit("changestate", ChatState.LOGIN);
     }
 
-    doRegister() {
+    doRegister(event: Event): boolean {
+        event.preventDefault();
         if (Validator.validateForm(this.form)) {
             const formData = new FormData(this.form);
-            const payload = {
-                first_name: formData.get("first_name"),
-                second_name: formData.get("second_name"),
-                login: formData.get("login"),
-                email: formData.get("email"),
-                password: formData.get("password"),
-                phone: formData.get("phone"),
+            const payload: User = {
+                avatar: '',
+                first_name: formData.get("first_name")?.toString() || '',
+                second_name: formData.get("second_name")?.toString() || '',
+                login: formData.get("login")?.toString() || '',
+                email: formData.get("email")?.toString() || '',
+                password: formData.get("password")?.toString() || '',
+                phone: formData.get("phone")?.toString() || '',
+                display_name: formData.get("display_name")?.toString() || '',
             };
 
             console.log("New sigh up data:");
@@ -44,11 +48,16 @@ export class FRegister extends BaseComponent {
                     console.log(`Error: ${error}`);
                 });
         }
+        return false;
     }
 
     doValidate(event: Event) {
         Validator.validateEvent(event);
     }
+
+    listeners = [
+        { elementId: "regForm", eventName: "submit", listener: this.doRegister },
+    ];
 
     constructor() {
         super();

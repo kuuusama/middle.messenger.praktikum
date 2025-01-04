@@ -1,4 +1,5 @@
 import { EventBus } from "./eventbus";
+// @ts-expect-error Something wrong with Handlebars import. But it works fine.
 import Handlebars from "handlebars";
 
 export enum EVENTS {
@@ -9,9 +10,9 @@ export enum EVENTS {
 }
 
 export class Props {
-    [key: string]: any;
+    [key: string]: unknown;
     events: {
-        [key: string]: any;
+        [key: string]: () => void;
     } = {};
 }
 
@@ -29,7 +30,7 @@ export interface Listener {
     listener: Function;
 }
 
-const elementAttrs = ["href", "target", "type", "id"];
+const elementAttrs = ["href", "target", "type", "id", "form"];
 
 export abstract class BaseComponent extends HTMLElement {
     template: string = "";
@@ -37,38 +38,42 @@ export abstract class BaseComponent extends HTMLElement {
     _element!: HTMLElement;
     _meta!: Meta;
     eventBus: EventBus;
-    props: Props;
-    [key: string]: any;
+    props: Props = { events: {}};
+    [key: string]: unknown;
     listeners?: Array<Listener>;
 
     constructor() {
         super();
 
-        Handlebars.registerHelper("ifeq", function (a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifeq", function(a: any, b: any, options: any) {
             if (a == b) {
+                // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifor", function (a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifor", function(a: any, b: any, options: any) {
             if (a || b) {
+                // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifNotBoth", function (a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifNotBoth", function(a: any, b: any, options: any) {
             if (!a && !b) {
+                // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifBoth", function (a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifBoth", function(a: any, b: any, options: any) {
             if (a && b) {
+                // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("json", function (context) {
+        Handlebars.registerHelper("json", function(context: object) {
             return JSON.stringify(context);
         });
 
@@ -87,20 +92,23 @@ export abstract class BaseComponent extends HTMLElement {
         eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
-    private _change(event: any): void {
-        this.proxy.value = event.target.value;
-
-        setTimeout(() => {
-            const tgt = document.getElementsByName(event.target.name)[0] as HTMLInputElement;
-            if (tgt) {
-                tgt.focus();
-                tgt.selectionStart = tgt.selectionEnd = tgt.value.length;
-            }
-        }, 0);
+    private _change(event: Event): void {
+        const target = event.target as HTMLInputElement;
+        const name = target.name;
+        if (target) {
+            this.proxy.value = target.value;
+            setTimeout(() => {
+                const newTarget = document.getElementsByName(name)[0];
+                if (newTarget instanceof HTMLInputElement) {
+                    newTarget.focus();
+                    newTarget.selectionStart = newTarget.selectionEnd = newTarget.value.length;
+                }
+            }, 0);
+        }
     }
 
     public getParentComponent(node: HTMLElement): BaseComponent | undefined {
-        let result = node.parentElement;
+        const result = node.parentElement;
         if (result) {
             if (result instanceof BaseComponent) {
                 return result;
@@ -184,7 +192,7 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     private debounce(mainFunction: Function, delay: number) {
-        let timer: NodeJS.Timeout;
+        let timer: number;
 
         return function (...args: any[]) {
             clearTimeout(timer);
@@ -195,7 +203,9 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    componentDidMount(oldProps: Props) {}
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+    componentDidMount(oldProps: Props) {
+    }
 
     dispatchComponentDidMount() {
         this.eventBus.emit(EVENTS.FLOW_CDM);
@@ -209,6 +219,7 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     // Может переопределять пользователь, необязательно трогать
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     componentDidUpdate(oldProps: Props, newProps: Props) {
         return true;
     }
@@ -247,22 +258,20 @@ export abstract class BaseComponent extends HTMLElement {
     proxy: BaseComponent;
 
     _makePropsProxy(props: BaseComponent): BaseComponent {
-        const self = this;
-
         const handler = {
             get(target: any, prop: any) {
                 const value = target[prop];
                 return typeof value === "function" ? value.bind(target) : value;
             },
 
-            set(target: any, prop: any, value: any) {
+            set: (target: any, prop: any, value: any) => {
                 target[prop] = value;
 
                 if (elementAttrs.includes(prop) && value) {
-                    self._element.setAttribute(prop, value);
+                    this._element.setAttribute(prop, value);
                 }
 
-                self.eventBus.emit(EVENTS.FLOW_CDU, { ...target }, target);
+                this.eventBus.emit(EVENTS.FLOW_CDU, { ...target }, target);
                 return true;
             },
 

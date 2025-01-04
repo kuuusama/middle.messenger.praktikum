@@ -3,7 +3,6 @@ import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
 import { NetworkService } from "../../framework/network";
 import Validator from "../../framework/validator";
-import { FInput } from "../../shared/components/input/input";
 import { ChatState } from "../main/main";
 import { default as template } from "./login.html?raw";
 import "./login.scss";
@@ -16,13 +15,14 @@ import "./login.scss";
 export class FLogin extends BaseComponent {
     form!: HTMLFormElement;
 
-    doLogin() {
+    doLogin(event: Event): boolean {
+        event.preventDefault();
         if (Validator.validateForm(this.form)) {
             Broadcast.i.emit("changestate", ChatState.CHAT);
             const formData = new FormData(this.form);
             const payload = {
-                login: formData.get("login"),
-                password: formData.get("password"),
+                login: formData.get("login")?.toString() || '',
+                password: formData.get("password")?.toString() || '',
             };
             NetworkService.i
                 .signin(payload)
@@ -34,6 +34,7 @@ export class FLogin extends BaseComponent {
                     console.log(`Error: ${error}`);
                 });
         }
+        return false;
     }
 
     doRegister() {
@@ -43,6 +44,10 @@ export class FLogin extends BaseComponent {
     doValidate(event: Event) {
         Validator.validateEvent(event);
     }
+
+    listeners = [
+        { elementId: "loginForm", eventName: "submit", listener: this.doLogin },
+    ];
 
     constructor() {
         super();

@@ -12,7 +12,7 @@ export class Broadcast {
         this.eventBus.on(event, callback);
     }
 
-    public off(event: string, callback: Function) {
+    public off(event: string, callback: () => void) {
         this.eventBus.off(event, callback);
     }
 

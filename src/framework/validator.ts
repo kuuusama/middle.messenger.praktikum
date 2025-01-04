@@ -16,7 +16,7 @@ export default class Validator {
     private static _instance: Validator;
 
     private static getParentComponent(node: HTMLElement): BaseComponent | undefined {
-        let result = node.parentElement;
+        const result = node.parentElement;
         if (result) {
             if (result instanceof BaseComponent) {
                 return result;

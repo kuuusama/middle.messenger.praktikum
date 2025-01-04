@@ -6,5 +6,6 @@ export default class User {
     display_name: string = "";
     phone: string = "";
     avatar: string = "";
+    password: string = "";
     [key: string]: string;
 }

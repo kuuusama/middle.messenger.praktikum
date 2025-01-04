@@ -1,5 +1,3 @@
-import { BaseComponent } from "./basecomponent";
-
 export interface IComponentConfig {
     selector: string;
     template: string;

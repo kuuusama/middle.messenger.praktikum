@@ -1,0 +1,15 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "import-notation": null,
+        "declaration-empty-line-before": null,
+        "at-rule-no-unknown": null,
+        "selector-class-pattern": null,
+        "font-family-name-quotes": null,
+        "font-family-no-missing-generic-family-keyword": null,
+        "function-url-quotes": null,
+        "property-no-vendor-prefix": null,
+        "selector-id-pattern": null,
+        "color-hex-length": null
+    }
+}

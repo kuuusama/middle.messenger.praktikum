@@ -47,6 +47,7 @@
             {{#ifNotBoth editPasswordMode editPasswordMode}}
             <div class="fields" id="fields">
                 <form id="profileForm">
+                    {{editMode}}
                     <div class="field">
                         <label class="field_label" for="email">Почта</label>
                         {{#if editMode}}
@@ -150,7 +151,9 @@
                     </div>
                 </form>
             </div>
-            {{/ifNotBoth}} {{#if editPasswordMode}}
+            {{/ifNotBoth}}
+            
+            {{#if editPasswordMode}}
             <div class="fields passwords" id="passwords">
                 <form id="passwordForm">
                     <div class="field">
@@ -187,7 +190,9 @@
                     </div>
                 </form>
             </div>
-            {{/if}} {{#ifNotBoth editMode editPasswordMode}}
+            {{/if}}
+
+            {{#ifNotBoth editMode editPasswordMode}}
             <div class="buttons" id="buttons">
                 <div class="button_container">
                     <f-linkbutton [class]="profile_button" (click)="doEdit">Изменить данные</f-linkbutton>
@@ -201,9 +206,17 @@
                     <f-linkbutton [class]="profile_button red" (click)="doExit">Выйти</f-linkbutton>
                 </div>
             </div>
-            {{/ifNotBoth}} {{#ifor editMode editPasswordMode}}
-            <f-button [id]="saveButton" [class]="save_button" (click)="doSave">Сохранить</f-button>
-            {{/ifor}}
+            {{/ifNotBoth}}
+
+            {{#if editMode}}
+                <f-button [class]="save_button" [type]="submit" [form]="profileForm">Сохранить</f-button>
+            {{/if}}
+
+            {{#if editPasswordMode}}
+                <f-button [class]="save_button" [type]="submit" [form]="passwordForm">Сохранить</f-button>
+            {{/if}}
+
+
         </div>
     </div>
 </div>

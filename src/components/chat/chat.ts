@@ -1,7 +1,6 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
-import { NetworkService } from "../../framework/network";
 import { Contact } from "../../shared/models/contact";
 import { Message } from "../../shared/models/message";
 import { ChatState } from "../main/main";
@@ -119,13 +118,13 @@ export class FChat extends BaseComponent {
     displayChatDialog: boolean = false;
     addUserMode: boolean = false;
 
-    sortHistory(messages: Array<Message>): Array<IConversationDay> {
+    private sortHistory(messages: Array<Message>): Array<IConversationDay> {
         const result: Array<IConversationDay> = [];
         const msgs = messages.sort((b, a) => {
             return b.date.getTime() - a.date.getTime();
         });
 
-        let rez = groupBy(msgs, (message) => message.dateDay);
+        const rez = groupBy(msgs, (message) => message.dateDay);
 
         Object.keys(rez).forEach((key) => {
             result.push({
@@ -151,11 +150,11 @@ export class FChat extends BaseComponent {
         this.eventBus.emit(EVENTS.FLOW_CDU);
     }
 
-    toggleAttachMenu(arg: Event): void {
+    toggleAttachMenu(): void {
         this.proxy.displayAttachMenu = !this.proxy.displayAttachMenu;
     }
 
-    toggleUserMenu(arg: Event): void {
+    toggleUserMenu(): void {
         this.proxy.displayUserMenu = !this.proxy.displayUserMenu;
     }
 
@@ -198,12 +197,15 @@ export class FChat extends BaseComponent {
         Broadcast.i.emit("changestate", ChatState.PROFILE);
     }
 
-    sendPhrase() {
+    sendPhrase(event: Event) {
+        event.preventDefault();
         const input = document.getElementById("phraseInput") as HTMLInputElement;
         if (input) {
             const value = input.value;
             if (value.length) {
+                //TODO: send phrase to server
                 console.log(value);
+                input.value = '';
             }
         }
     }
@@ -218,8 +220,7 @@ export class FChat extends BaseComponent {
         { elementId: "deleteChatButton", eventName: "click", listener: this.deleteChat },
         { elementId: "userMenuButton", eventName: "click", listener: this.toggleUserMenu },
         { elementId: "profileToggleLink", eventName: "click", listener: this.toggleUserProfile },
-        { elementId: "phraseInput", eventName: "blur", listener: this.validatePhrase },
-        { elementId: "sendButton", eventName: "click", listener: this.sendPhrase },
+        { elementId: "phraseForm", eventName: "submit", listener: this.sendPhrase },
     ];
 
     constructor() {
