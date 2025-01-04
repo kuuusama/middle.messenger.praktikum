@@ -43,8 +43,6 @@ export class FProfile extends BaseComponent {
     doEdit(): void {
         this.editPasswordMode = false;
         this.proxy.editMode = true;
-
-        console.log(`editMode: ${this.editMode}`);
     }
 
     doEditPassword(): void {

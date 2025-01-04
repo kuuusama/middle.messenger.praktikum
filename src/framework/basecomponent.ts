@@ -1,3 +1,5 @@
+// @ts-expect-error Something wrong with Handlebars import. But it works fine.
+import { HelperOptions } from "handlebars";
 import { EventBus } from "./eventbus";
 // @ts-expect-error Something wrong with Handlebars import. But it works fine.
 import Handlebars from "handlebars";
@@ -45,28 +47,28 @@ export abstract class BaseComponent extends HTMLElement {
     constructor() {
         super();
 
-        Handlebars.registerHelper("ifeq", function(a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifeq", function(a: number, b: number, options: HelperOptions) {
             if (a == b) {
                 // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifor", function(a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifor", function(a: boolean, b: boolean, options: HelperOptions) {
             if (a || b) {
                 // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifNotBoth", function(a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifNotBoth", function(a: boolean, b: boolean, options: HelperOptions) {
             if (!a && !b) {
                 // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
             }
         });
 
-        Handlebars.registerHelper("ifBoth", function(a: any, b: any, options: any) {
+        Handlebars.registerHelper("ifBoth", function(a: boolean, b: boolean, options: HelperOptions) {
             if (a && b) {
                 // @ts-expect-error Handlebars helpers won't work if it become an arrow function
                 return options.fn(this);
@@ -119,7 +121,7 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     _assignEvents(): void {
-        const parent = this.getParentComponent(this) as HTMLElement & { [key: string]: any };
+        const parent = this.getParentComponent(this) as BaseComponent & { [key: string]: Function };
 
         let element = this._element;
 
@@ -194,7 +196,7 @@ export abstract class BaseComponent extends HTMLElement {
     private debounce(mainFunction: Function, delay: number) {
         let timer: number;
 
-        return function (...args: any[]) {
+        return function (...args: unknown[]) {
             clearTimeout(timer);
             timer = setTimeout(() => {
                 mainFunction(...args);
@@ -259,12 +261,12 @@ export abstract class BaseComponent extends HTMLElement {
 
     _makePropsProxy(props: BaseComponent): BaseComponent {
         const handler = {
-            get(target: any, prop: any) {
+            get(target: BaseComponent, prop: string) {
                 const value = target[prop];
                 return typeof value === "function" ? value.bind(target) : value;
             },
 
-            set: (target: any, prop: any, value: any) => {
+            set: (target: BaseComponent, prop: string, value: string) => {
                 target[prop] = value;
 
                 if (elementAttrs.includes(prop) && value) {

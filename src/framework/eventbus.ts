@@ -1,5 +1,7 @@
 export class EventBus {
-    listeners: any;
+    listeners: {
+        [key: string]: Function[]
+    }; //We don't know here, which listeners will be created.
 
     constructor() {
         this.listeners = {};
@@ -20,7 +22,7 @@ export class EventBus {
         this.listeners[event] = this.listeners[event].filter((listener: Function) => listener !== callback);
     }
 
-    emit(event: string, ...args: any[]) {
+    emit(event: string, ...args: unknown[]) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

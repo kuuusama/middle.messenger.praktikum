@@ -25,7 +25,6 @@ function queryStringify(data: object & { [key: string]: string | number | boolea
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
         const safeValue = encodeURIComponent(data[key]);
-        console.log(safeValue);
         return `${result}${key}=${safeValue}${index < keys.length - 1 ? "&" : ""}`;
     }, "?");
 }

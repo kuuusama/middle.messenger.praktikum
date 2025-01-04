@@ -12,11 +12,11 @@ export class Broadcast {
         this.eventBus.on(event, callback);
     }
 
-    public off(event: string, callback: () => void) {
+    public off(event: string, callback: Function) {
         this.eventBus.off(event, callback);
     }
 
-    public emit(event: string, ...args: any[]) {
+    public emit(event: string, ...args: unknown[]) {
         this.eventBus.emit(event, args);
     }
 
