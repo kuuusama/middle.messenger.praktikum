@@ -12,7 +12,7 @@ interface IConversationDay {
     messages: Array<Message>;
 }
 
-const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+const groupBy = <T, K extends string | number | symbol>(arr: T[], key: (i: T) => K) =>
     arr.reduce(
         (groups, item) => {
             (groups[key(item)] ||= []).push(item);
