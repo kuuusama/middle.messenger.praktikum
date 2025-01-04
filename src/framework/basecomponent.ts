@@ -205,8 +205,8 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     componentDidMount(oldProps: Props) {
+        console.log(oldProps);
     }
 
     dispatchComponentDidMount() {
@@ -221,8 +221,9 @@ export abstract class BaseComponent extends HTMLElement {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     componentDidUpdate(oldProps: Props, newProps: Props) {
+        console.log(oldProps);
+        console.log(newProps);
         return true;
     }
 
