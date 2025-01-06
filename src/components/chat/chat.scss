@@ -1,3 +1,9 @@
+@import "../../shared/styles/const.scss";
+
+.fchat {
+    display: contents;
+}
+
 .chat {
     font-family: "Inter";
     display: flex;
@@ -5,6 +11,7 @@
     justify-content: flex-start;
     align-items: stretch;
     flex-grow: 1;
+    width: 99%;
 
     .left {
         display: flex;
@@ -36,6 +43,7 @@
 
         .search_container {
             padding: 0 10px;
+
             .search {
                 width: 100%;
                 height: 32px;
@@ -53,108 +61,6 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-
-            .contact {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: flex-start;
-                box-sizing: border-box;
-                height: 71px;
-                overflow: hidden;
-                flex-shrink: 0;
-
-                border-top: 1px solid $color_border;
-
-                padding: 12px 10px;
-
-                &.selected {
-                    background-color: $color_background_selected;
-                }
-
-                &:last-child {
-                    border-bottom: 1px solid $color_border;
-                }
-
-                .avatar {
-                    width: 47px;
-                    height: 47px;
-                    border-radius: 50%;
-                    background-color: $color_background_input;
-                    margin-right: 10px;
-                    flex-shrink: 0;
-                }
-
-                .main {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-                    margin-right: 17px;
-                    overflow: hidden;
-
-                    .name {
-                        padding: 0;
-                        margin: 0;
-                        margin-bottom: 4px;
-                        font-size: 13px;
-                        font-weight: 600;
-                        color: $color_main_text;
-                    }
-                    .message {
-                        display: -webkit-box;
-                        font-size: 12px;
-                        font-weight: 500;
-                        color: $color_label;
-
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        line-clamp: 2;
-                        -webkit-box-orient: vertical;
-                        -webkit-line-clamp: 2;
-
-                        .you {
-                            color: $color_main_text;
-                        }
-                    }
-                }
-                .indicators {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    align-items: center;
-                    box-sizing: border-box;
-
-                    .clock {
-                        display: block;
-                        font-size: 9px;
-                        line-height: 13px;
-                        font-weight: 500;
-                        color: $color_label;
-                        margin-bottom: 14px;
-                    }
-
-                    .counter {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-
-                        width: 20px;
-                        height: 20px;
-                        box-sizing: border-box;
-                        border-radius: 50%;
-                        flex-shrink: 0;
-                        font-size: 11px;
-                        line-height: 12px;
-                        color: $color_white;
-                        padding: 4px;
-
-                        background-color: $color_blue;
-                    }
-                }
-            }
         }
     }
 
@@ -163,11 +69,11 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
-        padding: 10px 20px 10px 20px;
+        padding: 10px 20px;
         width: 100%;
 
         .menu {
-            display: none; //flex;
+            display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
@@ -180,10 +86,6 @@
 
             position: absolute;
             z-index: 1;
-
-            &.open {
-                display: flex;
-            }
 
             .menu_item {
                 display: flex;
@@ -204,11 +106,11 @@
             }
 
             &.attach_menu {
-                bottom: 95px;
+                bottom: 75px;
             }
 
             &.user_menu {
-                top: 105px;
+                top: 75px;
                 right: 30px;
             }
         }
@@ -250,7 +152,6 @@
                 background-color: $color_white;
                 border: none;
                 outline: none;
-
                 cursor: pointer;
 
                 svg {
@@ -274,16 +175,12 @@
                 height: 100vh;
                 background-color: $color_backdrop;
 
-                display: none; //flex;
+                display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
 
                 z-index: 2;
-
-                &.open {
-                    display: flex;
-                }
 
                 .dialog_content {
                     display: flex;
@@ -305,24 +202,6 @@
                         line-height: 20px;
                         font-weight: 500;
                         margin-bottom: 50px;
-
-                        #addSpan,
-                        #delSpan {
-                            display: none;
-
-                            &.visible {
-                                display: inline;
-                            }
-                        }
-                    }
-
-                    #addButton,
-                    #delButton {
-                        display: none;
-
-                        &.visible {
-                            display: block;
-                        }
                     }
 
                     #delChatButton {
@@ -331,9 +210,19 @@
                 }
             }
         }
+
         .conversation {
             padding-top: 48px;
             flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            .day {
+                width: 100%;
+            }
 
             .date {
                 width: 100%;
@@ -343,58 +232,8 @@
                 font-size: 12px;
                 line-height: 12px;
             }
-
-            .message {
-                position: relative;
-                padding: 11px;
-                max-width: 402px;
-                min-width: 115px;
-                background-color: $color_background_message;
-                border-radius: 12px;
-                border-top-left-radius: 0;
-
-                font-size: 12px;
-                line-height: 15px;
-                margin-bottom: 30px;
-
-                &.was_read {
-                    .message_indicators {
-                        .message_time {
-                            color: $color_blue;
-                        }
-                    }
-                }
-
-                .message_indicators {
-                    position: absolute;
-                    bottom: 11px;
-                    right: 11px;
-
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: flex-start;
-                    align-items: center;
-                    gap: 4px;
-                }
-
-                .message_time {
-                    font-size: 9px;
-                    line-height: 9px;
-                    color: $color_label;
-                }
-
-                .read {
-                    color: $color_label;
-                }
-
-                &.my {
-                    float: right;
-                    background-color: $color_background_selected;
-                    border-radius: 12px;
-                    border-bottom-right-radius: 0;
-                }
-            }
         }
+
         .bottom {
             display: flex;
             flex-direction: row;
@@ -413,16 +252,19 @@
                 border: none;
                 outline: none;
 
-                svg {
-                    fill: $color_label;
-                }
+                -webkit-mask: url(assets/clip.svg) no-repeat center;
+                mask: url(assets/clip.svg) no-repeat center;
+
+                background-color: $color_label;
 
                 &.pressed,
                 &:hover {
-                    svg {
-                        fill: $color_blue;
-                    }
+                    background-color: $color_blue;
                 }
+            }
+
+            .phrase_form {
+                display: contents;
             }
 
             .phrase {

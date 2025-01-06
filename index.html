@@ -7,23 +7,14 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..600;1,14..32,400..600&display=swap"
             rel="stylesheet"
         />
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
         <title>Simple chat</title>
     </head>
 
     <body>
-        <main>
-            <div id="app"></div>
-            <script type="module" src="./src/main.ts"></script>
+        <script type="module" src="./index.ts"></script>
+        <div id="app"></div>
 
-            <div class="state state_login" id="stateLogin">{{>login }}</div>
-
-            <div class="state state_register" id="stateRegister">{{>register }}</div>
-
-            <div class="state state_chat" id="stateChat">{{>chat }}</div>
-
-            <div class="state state_profile" id="stateProfile">{{>profile }}</div>
-
-            <div class="state state_404" id="state404">{{>404 }}</div>
-        </main>
+        <f-main></f-main>
     </body>
 </html>

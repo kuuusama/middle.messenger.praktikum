@@ -1,0 +1,50 @@
+@import "../../shared/styles/const.scss";
+
+.message {
+    position: relative;
+    padding: 11px;
+    max-width: 402px;
+    min-width: 115px;
+    background-color: $color_background_message;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 30px;
+
+    &_indicators {
+        position: absolute;
+        bottom: 11px;
+        right: 11px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+
+        svg {
+            stroke: $color_label;
+        }
+
+        .read {
+            svg {
+                stroke: $color_blue;
+            }
+        }
+    }
+
+    &_time {
+        font-size: 9px;
+        line-height: 9px;
+        color: $color_label;
+    }
+
+    &.my {
+        float: right;
+        background-color: $color_background_selected;
+        border-radius: 12px;
+        border-bottom-right-radius: 0;
+    }
+}

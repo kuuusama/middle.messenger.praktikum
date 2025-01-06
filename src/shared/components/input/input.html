@@ -1,5 +1,9 @@
-<div class="input_box {{class}}">
-    <label class="label" for="login">{{label}}</label>
-    <input class="input" name="login" placeholder="{{label}}" type="{{type}}" name="{{name}}" />
-    <label class="error" for="login">{{error}}</label>
-</div>
+{{#ifBoth label value}}
+<label class="label" for="{{name}}">{{label}}</label>
+{{/ifBoth}}
+
+<input class="input" name="{{name}}" placeholder="{{label}}" type="{{type}}" name="{{name}}" value="{{value}}" />
+
+{{#if error}}
+<label class="error" for="{{name}}">{{error}}</label>
+{{/if}}

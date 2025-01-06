@@ -1,6 +1,6 @@
 @import "../../styles/const.scss";
 
-.input_box {
+.finput {
     font-family: "Inter";
 
     display: flex;
@@ -8,6 +8,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     margin-bottom: 32px;
+    position: relative;
 
     &.full_width {
         width: 100%;
@@ -15,20 +16,21 @@
 
     .label,
     .error {
+        position: absolute;
+        display: inline-block;
         font-size: 9px;
         color: $color_label;
-        margin-bottom: 8px;
-        display: none;
+    }
 
-        &.visible {
-            display: inline-block;
-        }
+    .label {
+        top: -6px;
     }
 
     .error {
         color: $color_error;
         margin-bottom: 0;
-        margin-top: 7px;
+        bottom: -14px;
+        white-space: nowrap;
     }
 
     .input {

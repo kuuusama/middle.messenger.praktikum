@@ -1,0 +1,112 @@
+@import "../../shared/styles/const.scss";
+
+.fcontact {
+    display: contents;
+}
+
+.contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    height: 71px;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100%;
+
+    border-top: 1px solid $color_border;
+    padding: 12px 10px;
+
+    cursor: pointer;
+
+    &.selected {
+        background-color: $color_background_selected;
+    }
+
+    &:last-child {
+        border-bottom: 1px solid $color_border;
+    }
+
+    .avatar {
+        width: 47px;
+        height: 47px;
+        border-radius: 50%;
+        background-color: $color_background_input;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-right: 17px;
+        overflow: hidden;
+        width: 100%;
+
+        .name {
+            padding: 0;
+            margin: 0;
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: $color_main_text;
+        }
+
+        .lastmessage {
+            display: -webkit-box;
+            font-size: 12px;
+            font-weight: 500;
+            color: $color_label;
+
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+
+            .you {
+                color: $color_main_text;
+            }
+        }
+    }
+
+    .indicators {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
+
+        .clock {
+            display: block;
+            font-size: 9px;
+            line-height: 13px;
+            font-weight: 500;
+            color: $color_label;
+            margin-bottom: 14px;
+        }
+
+        .counter {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border-radius: 50%;
+            flex-shrink: 0;
+            font-size: 11px;
+            line-height: 12px;
+            color: $color_white;
+            padding: 4px;
+
+            background-color: $color_blue;
+        }
+    }
+}
