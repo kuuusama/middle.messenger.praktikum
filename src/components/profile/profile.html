@@ -22,12 +22,12 @@
                             {{#if displayInputFileLabel}}
                             <label for="inputFile" class="dialog_button">Выбрать файл <br />на компьютере</label>
                             {{/if}}
-                            {{#if inputFileValue}}
-                            <label for="inputFile" class="dialog_value">{{ inputFileValue }}</label>
+                            {{#if inputFileName}}
+                            <label for="inputFile" class="dialog_value">{{ inputFileName }}</label>
                             {{/if}}
                             <input type="file" id="inputFile" class="dialog_file" name="avatar" />
 
-                            {{#if inputFileValue}}
+                            {{#if inputFileName}}
                             <f-button
                                 [id]="avatarSaveButton"
                                 [class]="dialog_save_button full_width"
