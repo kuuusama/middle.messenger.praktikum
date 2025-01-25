@@ -1,9 +1,11 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
 import { NetworkService } from "../../framework/network";
+import { Store } from "../../framework/store";
 import Validator from "../../framework/validator";
-import User from "../../shared/models/user";
+import IUser from "../../shared/models/user";
 import { ChatState } from "../main/main";
 import { default as template } from "./register.html?raw";
 import "./register.scss";
@@ -14,17 +16,21 @@ import "./register.scss";
     selector: "f-register",
 })
 export class FRegister extends BaseComponent {
+    @Inject('Broadcast') private broadcast!: Broadcast;
+    @Inject('NetworkService') private network!: NetworkService;
+    @Inject('Store') private store!: Store;
+
     form!: HTMLFormElement;
 
     doLogin() {
-        Broadcast.i.emit("changestate", ChatState.LOGIN);
+       this.broadcast.emit("changestate", ChatState.LOGIN);
     }
 
     doRegister(event: Event): boolean {
         event.preventDefault();
         if (Validator.validateForm(this.form)) {
             const formData = new FormData(this.form);
-            const payload: User = {
+            const payload: IUser = {
                 avatar: '',
                 first_name: formData.get("first_name")?.toString() || '',
                 second_name: formData.get("second_name")?.toString() || '',
@@ -35,14 +41,12 @@ export class FRegister extends BaseComponent {
                 display_name: formData.get("display_name")?.toString() || '',
             };
 
-            console.log("New sigh up data:");
-            console.log(payload);
-
-            NetworkService.i
+            this.network
                 .signup(payload)
                 .then((result) => {
-                    console.log(result);
-                    Broadcast.i.emit("changestate", ChatState.LOGIN);
+                    payload.id = (result as { id: number }).id;
+                    this.store.setData('user', payload)
+                    this.broadcast.emit("changestate", ChatState.CHAT);
                 })
                 .catch((error) => {
                     console.log(`Error: ${error}`);
@@ -62,6 +66,8 @@ export class FRegister extends BaseComponent {
     constructor() {
         super();
         this.eventBus.emit(EVENTS.INIT);
-        this.form = document.querySelector("#regForm") as HTMLFormElement;
+        setTimeout( () => {
+            this.form = document.querySelector("#regForm") as HTMLFormElement;
+        }, 0);        
     }
 }

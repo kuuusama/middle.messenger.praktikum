@@ -39,7 +39,7 @@ export default class Validator {
             case "login":
                 result = /^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\d\s])[A-Z][a-zA-Z0-9_-]{2,19}$/g.test(value)
                     ? null
-                    : ERRORS.ILLEGAL_CHARS;
+                    : ERRORS.ILLEGAL_LOGIN;
                 break;
 
             case "email":

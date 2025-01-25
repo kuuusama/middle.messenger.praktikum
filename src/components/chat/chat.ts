@@ -1,6 +1,7 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
 import { Contact } from "../../shared/models/contact";
 import { Message } from "../../shared/models/message";
 import { ChatState } from "../main/main";
@@ -27,6 +28,8 @@ const groupBy = <T, K extends string | number | symbol>(arr: T[], key: (i: T) =>
     selector: "f-chat",
 })
 export class FChat extends BaseComponent {
+   @Inject('Broadcast') private broadcast!: Broadcast;
+    
     contacts: Array<Contact> = [
         new Contact({
             id: 1,
@@ -194,7 +197,7 @@ export class FChat extends BaseComponent {
     }
 
     toggleUserProfile() {
-        Broadcast.i.emit("changestate", ChatState.PROFILE);
+      this.broadcast.emit("changestate", ChatState.PROFILE);
     }
 
     sendPhrase(event: Event) {
@@ -225,7 +228,7 @@ export class FChat extends BaseComponent {
 
     constructor() {
         super();
-        Broadcast.i.on("select_contact", this.selectContact.bind(this));
+        this.broadcast.on("select_contact", this.selectContact.bind(this));
         this.eventBus.emit(EVENTS.INIT);
     }
 }

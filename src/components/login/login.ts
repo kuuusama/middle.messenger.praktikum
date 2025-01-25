@@ -1,8 +1,11 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
 import { NetworkService } from "../../framework/network";
+import { Store } from "../../framework/store";
 import Validator from "../../framework/validator";
+import IUser from "../../shared/models/user";
 import { ChatState } from "../main/main";
 import { default as template } from "./login.html?raw";
 import "./login.scss";
@@ -13,32 +16,39 @@ import "./login.scss";
     selector: "f-login",
 })
 export class FLogin extends BaseComponent {
+   @Inject('Broadcast') private broadcast!: Broadcast;
+   @Inject('NetworkService') private network!: NetworkService;
+   @Inject('Store') private store!: Store;
+    
     form!: HTMLFormElement;
+    error: string | null = null;
 
     doLogin(event: Event): boolean {
         event.preventDefault();
         if (Validator.validateForm(this.form)) {
-            Broadcast.i.emit("changestate", ChatState.CHAT);
+            this.proxy.error = null;
             const formData = new FormData(this.form);
             const payload = {
                 login: formData.get("login")?.toString() || '',
                 password: formData.get("password")?.toString() || '',
             };
-            NetworkService.i
+            this.network
                 .signin(payload)
                 .then((result) => {
-                    console.log(result);
-                    Broadcast.i.emit("changestate", ChatState.CHAT);
+                    if('OK' === result) {
+                        this.store.setData('userLoggedIn', true);
+                        this.broadcast.emit("changestate", ChatState.CHAT);
+                    }
                 })
                 .catch((error) => {
-                    console.log(`Error: ${error}`);
+                    this.proxy.error = error.reason;
                 });
         }
         return false;
     }
 
     doRegister() {
-        Broadcast.i.emit("changestate", ChatState.REGISTER);
+       this.broadcast.emit("changestate", ChatState.REGISTER);
     }
 
     doValidate(event: Event) {
@@ -52,6 +62,9 @@ export class FLogin extends BaseComponent {
     constructor() {
         super();
         this.eventBus.emit(EVENTS.INIT);
-        this.form = document.querySelector("#loginForm") as HTMLFormElement;
+        setTimeout(() => {
+            this.form = document.getElementById("loginForm") as HTMLFormElement;
+        }, 0);
+        
     }
 }

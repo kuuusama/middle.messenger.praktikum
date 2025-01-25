@@ -1,5 +1,6 @@
 @import "../../shared/styles/const.scss";
 
-.fmain {
+.fmain,
+.router-outlet {
     display: contents;
 }

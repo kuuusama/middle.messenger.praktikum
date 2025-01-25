@@ -3,15 +3,15 @@ import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
 import { Inject } from "../../framework/injection";
 import { ChatState } from "../main/main";
-import { default as template } from "./404.html?raw";
-import "./404.scss";
+import { default as template } from "./451.html?raw";
+import "./451.scss";
 
 @Component({
     tagName: "div",
     template: template,
-    selector: "f-notfound",
+    selector: "f-farenheit",
 })
-export class FNotFound extends BaseComponent {
+export class Fahrenheit extends BaseComponent {
    @Inject('Broadcast') private broadcast!: Broadcast;
 
     returnToChat() {

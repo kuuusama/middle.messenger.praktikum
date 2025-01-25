@@ -1,6 +1,7 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
 import { ChatState } from "../main/main";
 import { default as template } from "./500.html?raw";
 import "./500.scss";
@@ -11,8 +12,10 @@ import "./500.scss";
     template: template,
 })
 export class FServerError extends BaseComponent {
+   @Inject('Broadcast') private broadcast!: Broadcast;
+
     returnToChat() {
-        Broadcast.i.emit("changestate", ChatState.CHAT);
+   //     this.broadcast.emit("changestate", ChatState.CHAT);
     }
 
     constructor() {

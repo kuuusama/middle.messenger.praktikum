@@ -1,12 +1,10 @@
 import { EventBus } from "./eventbus";
+import { Injectable } from "./injection";
 
-export class Broadcast {
-    private static _instance: Broadcast;
+export 
+@Injectable()
+class Broadcast {
     private eventBus: EventBus;
-
-    public static get i(): Broadcast {
-        return this._instance || (this._instance = new this());
-    }
 
     public on(event: string, callback: Function) {
         this.eventBus.on(event, callback);

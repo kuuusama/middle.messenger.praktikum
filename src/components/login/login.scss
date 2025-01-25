@@ -26,6 +26,16 @@
         margin-bottom: 40px;
     }
 
+    .login_error {
+        font-family: 'Inter';
+        font-size: 12px;
+        line-height: 14px;
+        white-space: nowrap;
+        color: #ff2f2f;
+
+        margin-bottom: 8px;
+    }
+
     .spacer {
         flex-grow: 100;
     }

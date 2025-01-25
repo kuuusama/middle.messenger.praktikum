@@ -1,6 +1,7 @@
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
 import { Contact } from "../../shared/models/contact";
 import { default as template } from "./contact.html?raw";
 import "./contact.scss";
@@ -11,11 +12,13 @@ import "./contact.scss";
     template: template,
 })
 export class FContact extends BaseComponent {
+  //  @Inject('Broadcast') private broadcast!: Broadcast;
+    
     contact: string = "";
     cnt!: Contact;
 
     selectContact() {
-        Broadcast.i.emit("select_contact", this.cnt.id);
+    //    this.broadcast.emit("select_contact", this.cnt.id);
     }
 
     constructor() {

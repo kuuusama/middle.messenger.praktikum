@@ -12,16 +12,17 @@
                     <img src="assets/default_avatar.svg" />
                     <button class="change_avatar" id="displayAvatarDialogButton">Поменять<br />аватар</button>
                 </div>
-                <div class="avatar_name">Иван</div>
+                <div class="avatar_name">{{ user.first_name }}</div>
 
                 {{#if showAvatarDialog}}
                 <div class="avatar_dialog" id="avatarDialog">
                     <div class="dialog_content">
                         <h1 class="dialog_title">{{dialogTitle}}</h1>
-                        <form id="avatarForm">
+                        <form id="avatarForm" enctype="multipart/form-data">
                             {{#if displayInputFileLabel}}
                             <label for="inputFile" class="dialog_button">Выбрать файл <br />на компьютере</label>
-                            {{/if}} {{#if inputFileValue}}
+                            {{/if}}
+                            {{#if inputFileValue}}
                             <label for="inputFile" class="dialog_value">{{ inputFileValue }}</label>
                             {{/if}}
                             <input type="file" id="inputFile" class="dialog_file" name="avatar" />
@@ -32,8 +33,9 @@
                                 [class]="dialog_save_button full_width"
                                 (click)="doAvatarChange"
                                 [type]="button"
-                                >Поменять</f-button
                             >
+                                Поменять
+                            </f-button>
                             {{/if}}
                         </form>
                         {{#if dialogError}}
@@ -47,7 +49,6 @@
             {{#ifNotBoth editPasswordMode editPasswordMode}}
             <div class="fields" id="fields">
                 <form id="profileForm">
-                    {{editMode}}
                     <div class="field">
                         <label class="field_label" for="email">Почта</label>
                         {{#if editMode}}
