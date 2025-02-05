@@ -7,3 +7,4 @@ export default interface IResource {
     content_size: number, //File size in bytes
     upload_date: string, //Resource uploading time
 }
+
