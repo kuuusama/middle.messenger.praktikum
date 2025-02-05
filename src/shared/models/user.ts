@@ -7,6 +7,7 @@ export default interface IUser {
     display_name: string;
     phone: string;
     avatar: string;
-    password: string;
-    [key: string]: string | number | undefined;
+    password?: string;
+    notAdmin?: boolean;
+    [key: string]: string | number | boolean | undefined;
 }

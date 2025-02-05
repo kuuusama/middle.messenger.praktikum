@@ -222,8 +222,8 @@ export abstract class BaseComponent extends HTMLElement {
 
     // Может переопределять пользователь, необязательно трогать
     componentDidUpdate(oldProps: Props, newProps: Props) {
-        // console.log(oldProps);
-        // console.log(newProps);
+        console.log(oldProps);
+        console.log(newProps);
         return true;
     }
 

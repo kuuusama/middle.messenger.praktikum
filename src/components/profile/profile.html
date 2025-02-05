@@ -9,7 +9,11 @@
         <div class="profile_main">
             <div class="avatar">
                 <div class="avatar_image">
-                    <img src="assets/default_avatar.svg" />
+                    {{#if user.avatar }}
+                        <img src="https://ya-praktikum.tech/api/v2/resources{{user.avatar}}"/>
+                    {{else}}
+                        <img src="assets/default_avatar.svg" />
+                    {{/if}}
                     <button class="change_avatar" id="displayAvatarDialogButton">Поменять<br />аватар</button>
                 </div>
                 <div class="avatar_name">{{ user.first_name }}</div>

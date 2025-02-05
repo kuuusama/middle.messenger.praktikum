@@ -5,7 +5,6 @@ import { Inject } from "../../framework/injection";
 import { NetworkService } from "../../framework/network";
 import { Store } from "../../framework/store";
 import Validator from "../../framework/validator";
-import IUser from "../../shared/models/user";
 import { ChatState } from "../main/main";
 import { default as template } from "./login.html?raw";
 import "./login.scss";

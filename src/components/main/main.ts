@@ -4,7 +4,7 @@ import { Broadcast } from "../../framework/broadcast";
 import { default as template } from "./main.html?raw";
 import "./main.scss";
 import { Router } from "../../framework/router";
-import { FChat } from "../chat/chat";
+import { FChatboard } from "../chatboard/chatboard";
 import { FLogin } from "../login/login";
 import { FProfile } from "../profile/profile";
 import { FRegister } from "../register/register";
@@ -40,7 +40,7 @@ export class FMain extends BaseComponent {
         this.router.use('/', FLogin);
         this.router.use('/sign-up', FRegister);
         this.router.use('/settings', FProfile);
-        this.router.use('/messenger', FChat);
+        this.router.use('/messenger', FChatboard);
         this.router.start();
     }
 

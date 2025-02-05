@@ -1,133 +1,19 @@
-<div class="chat">
-    <div class="left">
-        <div class="left_profile">
-            <a class="profile_link" id="profileToggleLink">Профиль ></a>
-        </div>
-
-        <div class="search_container">
-            <form id="searchForm">
-                <input type="text" class="search" placeholder="Поиск" name="search" />
-            </form>
-        </div>
-
-        <div class="contacts">
-            {{#each contacts}}
-            <f-contact [contact]="{{json this}}"></f-contact>
-            {{/each}}
+<div class="chat {{#if _chat.selected}} selected {{/if}}">
+    <div class="avatar">
+        {{#if _chat.avatar}}
+        <img src="https://ya-praktikum.tech/api/v2/resources{{_chat.avatar}}" />
+        {{/if}}
+    </div>
+    <div class="main">
+        <div class="name">{{ _chat.title }}</div>
+        <div class="lastmessage">
+            {{#if lastMessageYours}}
+            <span class="you">Вы:</span>
+            {{/if}} {{ _chat.last_message.content }}
         </div>
     </div>
-
-    <div class="right">
-        {{#if activeContact }}
-        <div class="top">
-            <div class="active_contact">
-                <div class="avatar"><img src="{{activeContact.avatar}}" /></div>
-                <div class="name">{{ activeContact.name }}</div>
-            </div>
-
-            {{#if displayUserMenu}}
-            <div class="menu user_menu">
-                <button class="menu_item" id="addUserButton">
-                    <img src="assets/plus.svg" alt="Plus icon" />
-                    <span>Добавить пользователя</span>
-                </button>
-
-                <button class="menu_item" id="deleteUserButton">
-                    <img src="assets/minus.svg" alt="Minus icon" />
-                    <span>Удалить пользователя</span>
-                </button>
-
-                <button class="menu_item" id="deleteChatButton">
-                    <img src="assets/delete.svg" alt="Delete icon" />
-                    <span>Удалить чат</span>
-                </button>
-            </div>
-            {{/if}}
-
-            <button class="menu_button" id="userMenuButton">
-                <svg width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="1.5" cy="2" r="1.5" />
-                    <circle cx="1.5" cy="8" r="1.5" />
-                    <circle cx="1.5" cy="14" r="1.5" />
-                </svg>
-            </button>
-
-            {{#if displayUserDialog}}
-            <div class="user_dialog">
-                <div class="dialog_content">
-                    <h1 class="dialog_title">
-                        {{#if addUserMode}}
-                        <span id="addSpan">Добавить</span>
-                        {{else}}
-                        <span id="delSpan">Удалить</span> пользователя {{/if}}
-                    </h1>
-                    {{#if addUserMode}}
-                    <f-input [class]="full_width" [label]="Логин" [name]="login"></f-input>
-                    <f-button [class]="full_width" (click)="doAddUser">Добавить</f-button>
-                    {{else}}
-                    <f-button [class]="full_width" (click)="doDeleteUser">Удалить</f-button>
-                    {{/if}}
-                </div>
-            </div>
-            {{/if}} {{#if displayChatDialog}}
-            <div class="user_dialog">
-                <div class="dialog_content">
-                    <div class="dialog_title">Удалить текущий чат?</div>
-                    <f-button [class]="full_width" (click)="doDeleteChat" [id]="delChatButton">Удалить</f-button>
-                    <f-linkbutton (click)="doNotDeleteChat">Оставить</f-linkbutton>
-                </div>
-            </div>
-            {{/if}}
-        </div>
-        {{/if}}
-
-        <div class="conversation">
-            {{#each currentConversation}}
-            <div class="day">
-                <div class="date">{{this.date}}</div>
-                {{#each this.messages}}
-                <f-message [message]="{{json this}}"></f-message>
-                {{/each}}
-            </div>
-            {{/each}}
-        </div>
-
-        <div class="bottom">
-            {{#if displayAttachMenu}}
-            <div class="menu attach_menu" id="attachMenu">
-                <button class="menu_item" id="attachImageButton">
-                    <img src="assets/attachImage.svg" />
-                    <span>Фото или видео</span>
-                </button>
-
-                <button class="menu_item" id="attachFileButton">
-                    <img src="assets/attachFile.svg" />
-                    <span>Файл</span>
-                </button>
-
-                <button class="menu_item" id="attachLocationButton">
-                    <img src="assets/attachLocation.svg" />
-                    <span>Локация</span>
-                </button>
-            </div>
-            {{/if}}
-
-            <button class="attach" id="attachMenuButton">
-                <svg>
-                    <use xlink:href="assets/clip.svg" href="assets/clip.svg"></use>
-                </svg>
-            </button>
-
-            <form id="phraseForm" class="phrase_form" autocomplete="off">
-                <input class="phrase" type="text" placeholder="Сообщение" name="message" id="phraseInput" />
-            </form>
-
-            <button class="round" type="submit" form="phraseForm">
-                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect y="5.19995" width="11" height="1.6" fill="white" />
-                    <path d="M7 1L11 6L7 11" stroke="white" stroke-width="1.6" />
-                </svg>
-            </button>
-        </div>
+    <div class="indicators">
+        <span class="clock">{{ _chat.last_message.time }}</span>
+        <span class="counter">{{ _chat.unread_count }}</span>
     </div>
 </div>

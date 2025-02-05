@@ -1,10 +1,6 @@
 import { Injectable } from "./injection";
 import { Route } from "./route";
 
-declare global {
-    interface Window {}
-}
-
 export
 @Injectable()
 class Router {

@@ -65,6 +65,11 @@
                     margin-bottom: 21px;
                     border: 1px solid $color_border;
 
+                    img {
+                        height: 100%;
+                        max-width: 100%;
+                    }
+
                     .change_avatar {
                         display: none;
                         flex-direction: column;

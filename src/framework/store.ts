@@ -1,9 +1,14 @@
+import IChat from "../shared/models/chat";
 import IUser from "../shared/models/user";
 import { EventBus } from "./eventbus";
 import { Injectable } from "./injection";
 
 export interface IState {
     user: IUser;
+    userLoggedIn: boolean,
+    chats: Array<IChat>,
+    currentChatId: number,
+    currentChatUsers: IUser[],
     [key: string]: any; //It is really can be anything.
 }
 
@@ -18,7 +23,10 @@ const defaultData = {
         avatar: "",
         password: "123456",
     },
+    chats: [],
     userLoggedIn: false,
+    currentChatId: 0,
+    currentChatUsers: [],
 }
 
 export
@@ -27,8 +35,17 @@ class Store {
     private data: IState = defaultData;
     private bus: EventBus;
 
+    private getCopy(original: unknown): unknown {
+        const copy = Array.isArray(original) ? 
+            [...original] :
+            typeof original === 'object' ?
+            {...original } : original;
+
+        return copy;
+    }
+
     public setData(path: string, value: any): void {
-        let pathArray = path.split('.');
+        const pathArray = path.split('.');
         let target = this.data;
         while (pathArray.length - 1) {
             const key = pathArray.shift();
@@ -40,7 +57,10 @@ class Store {
             }
         }
         target[pathArray[0]] = value;
-        this.bus.emitIfListenersExists(path, {...target[pathArray[0]] }); //Send copy to prevent change by link
+
+        const result = this.getCopy(target[pathArray[0]]); //Send copy to prevent change by link
+
+        this.bus.emitIfListenersExists(path, result); 
     }
 
     public getData(path: string): any {
@@ -53,7 +73,7 @@ class Store {
                 return undefined
             }
         }
-        return typeof target !== "object" ? target : {...target};
+        return this.getCopy(target); //Send copy to prevent change by link
     }
 
     public on(path: string, listener: Function) {

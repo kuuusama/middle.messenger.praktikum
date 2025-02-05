@@ -1,0 +1,333 @@
+@import "../../shared/styles/const.scss";
+
+.fchatboard {
+    display: contents;
+}
+
+.chatboard {
+    font-family: "Inter";
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-grow: 1;
+    width: 99%;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        padding: 21px 0 0;
+        width: 310px;
+        flex-shrink: 0;
+
+        background-color: $color_background_secondary;
+        border-right: 1px solid $color_border;
+
+        .left_profile {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 100%;
+            margin-bottom: 23px;
+
+            .profile_link {
+                font-family: "Inter";
+                font-size: 12px;
+                color: $color_label;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+        }
+
+        .search_container {
+            padding: 0 10px;
+
+            .search {
+                width: 100%;
+                height: 32px;
+                border-radius: 5px;
+                margin-bottom: 14px;
+                border: none;
+                outline: none;
+                background-color: $color_background_input;
+                padding: 10px;
+            }
+        }
+
+        .contacts {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            .create_chat {
+                margin-top: 20px;
+                align-self: center;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 10px 20px;
+        width: 100%;
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            gap: 16px;
+            padding: 15px;
+
+            border-radius: 12px;
+            box-shadow: 0 0 6px 0 $color_shadow;
+            background-color: $color_white;
+
+            position: absolute;
+            z-index: 1;
+
+            .menu_item {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 15px;
+
+                font-size: 12px;
+                line-height: 14px;
+                font-weight: 500;
+                color: $color_main_text;
+
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+
+            &.attach_menu {
+                bottom: 75px;
+            }
+
+            &.user_menu {
+                top: 75px;
+                right: 30px;
+            }
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid $color_border;
+            width: 100%;
+
+            .active_contact {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+
+                padding: 10px 0;
+
+                .avatar {
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50%;
+                    background: $color_background_input;
+                    margin-right: 10px;
+                }
+
+                .name {
+                    font-size: 13px;
+                    line-height: 13px;
+                    font-weight: 600;
+                }
+            }
+
+            .menu_button {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background-color: $color_white;
+                border: none;
+                outline: none;
+                cursor: pointer;
+
+                svg {
+                    fill: $color_main_text;
+                }
+
+                &:hover {
+                    background-color: $color_button_hover;
+
+                    svg {
+                        fill: $color_blue;
+                    }
+                }
+            }
+
+            .user_dialog {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: $color_backdrop;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                z-index: 2;
+
+                .dialog_content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+
+                    width: 340px;
+                    padding: 30px 40px;
+                    box-sizing: border-box;
+
+                    background-color: white;
+
+                    border-radius: 12px;
+                    box-shadow: 0 0 6px 0 $color_shadow;
+
+                    form {
+                        display: contents;
+                    }
+
+                    .dialog_title {
+                        font-size: 15px;
+                        line-height: 20px;
+                        font-weight: 500;
+                        margin-bottom: 50px;
+                    }
+
+                    #delChatButton {
+                        display: block;
+                    }
+
+                    .utd_block {
+                        margin-bottom: 12px;
+                    }
+
+                    .utd {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 250px;
+                        height: 38px;
+
+                        .utd_main {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-start;
+                            align-items: center;
+
+                            .utd_avatar {
+                                width: 32px;
+                                height: 32px;
+                                margin-right: 12px;
+                            }
+
+                            .utd_name {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .conversation {
+            padding-top: 48px;
+            flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            .day {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .date {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 30px;
+                color: $color_label;
+                font-size: 12px;
+                line-height: 12px;
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: stretch;
+            gap: 10px;
+            padding-top: 10px;
+            box-sizing: border-box;
+            border-top: 1px solid $color_border;
+
+            .attach {
+                width: 32px;
+                height: 32px;
+                background: transparent;
+                cursor: pointer;
+                border: none;
+                outline: none;
+
+                -webkit-mask: url(assets/clip.svg) no-repeat center;
+                mask: url(assets/clip.svg) no-repeat center;
+
+                background-color: $color_label;
+
+                &.pressed,
+                &:hover {
+                    background-color: $color_blue;
+                }
+            }
+
+            .phrase_form {
+                display: contents;
+            }
+
+            .phrase {
+                height: 32px;
+                box-sizing: border-box;
+                border: none;
+                outline: none;
+                border-radius: 30px;
+                padding: 10px 20px;
+                flex-grow: 1;
+                background: $color_background_input;
+            }
+
+            .round {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: $color_blue;
+                cursor: pointer;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}

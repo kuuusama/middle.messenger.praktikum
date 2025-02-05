@@ -1,6 +1,8 @@
-import { Injectable } from "./injection";
+import IUser from "../shared/models/user";
+import { Inject, Injectable } from "./injection";
+import { Router } from "./router";
 
-type StData = object & { [key: string]: string | number };
+type StData = object & { [key: string]: string | number | undefined } | IUser;
 type RawData = Document | XMLHttpRequestBodyInit | string | null | undefined;
 
 export enum METHODS {
@@ -28,7 +30,8 @@ function queryStringify(data: StData ) {
 
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
-        const safeValue = encodeURIComponent(data[key]);
+
+        const safeValue = data[key] ? encodeURIComponent(data[key]) : '';
         return `${result}${key}=${safeValue}${index < keys.length - 1 ? "&" : ""}`;
     }, "?");
 }
@@ -36,6 +39,8 @@ function queryStringify(data: StData ) {
 export
 @Injectable()
 class HTTP {
+    @Inject('Router') private router!: Router;
+
     public get(url: string, options = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.GET });
     }
@@ -55,7 +60,7 @@ class HTTP {
     private request(url: string, options: IOptions = {}): Promise<unknown> {
         const { headers = {}, method, data, timeout, withCredentials = true } = options;
 
-        return new Promise(function (resolve, reject) {
+        return new Promise( (resolve, reject) => {
             if (!method) {
                 reject("No method");
                 return;
@@ -73,11 +78,24 @@ class HTTP {
                 xhr.setRequestHeader(key, headers[key]);
             });
 
-            xhr.onload = function () {
+            xhr.onload = () => {
                 if (xhr.readyState === 4) {
-                    if(xhr.status > 399) {
+                    if(xhr.status === 401) {
+                        this.router.go('/');
+                        reject(xhr.status);
+                    } else if(xhr.status === 404) {
+                        this.router.go('/404');
+                        reject(xhr.status);
+                    } else if(xhr.status === 451) {
+                        this.router.go('/451');
+                        reject(xhr.status);
+                    } else if(xhr.status >= 500) {
+                        this.router.go('/500');
+                        reject(xhr.status);
+                    } else if(xhr.status > 399) {
                         reject(JSON.parse(xhr.response));
-                    } else {
+                    }
+                    else {
                         resolve(xhr.response);
                     }                    
                 } else {
@@ -98,7 +116,7 @@ class HTTP {
             if (isGet || !data) {
                 xhr.send();
             } else {
-                xhr.send(headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data as RawData);
+               xhr.send(headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data as RawData);
             }
         });
     }

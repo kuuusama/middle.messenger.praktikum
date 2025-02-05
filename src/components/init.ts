@@ -1,9 +1,10 @@
+import { ChatController } from "../controllers/chat-controller";
 import { UserController } from "../controllers/user-controller";
 import { FNotFound } from "./404/404";
 import { Fahrenheit } from "./451/451";
 import { FServerError } from "./500/500";
+import { FChatboard } from "./chatboard/chatboard";
 import { FChat } from "./chat/chat";
-import { FContact } from "./contact/contact";
 import { FLogin } from "./login/login";
 import { FMain } from "./main/main";
 import { FMessage } from "./message/message";
@@ -12,6 +13,7 @@ import { FRegister } from "./register/register";
 
 const appComponents = {
     UserController,
+    ChatController,
     FNotFound,
     Fahrenheit,
     FServerError,
@@ -19,9 +21,9 @@ const appComponents = {
     FRegister,
     FProfile,
     FMain,
-    FChat,
+    FChatboard,
     FMessage,
-    FContact,
+    FChat,
     init: () => {},
 };
 

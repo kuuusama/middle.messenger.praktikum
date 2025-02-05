@@ -15,6 +15,7 @@ export class Route {
           this.componentConstructor = view;
           this.block = null;
           this.props = props;
+          console.log(this.props);
       }
   
     navigate(pathname: string): void {

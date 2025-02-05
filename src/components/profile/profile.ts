@@ -68,9 +68,12 @@ export class FProfile extends BaseComponent {
         const form = document.querySelector("#passwordForm") as HTMLFormElement;
         const formData = new FormData(form);
         if (Validator.validateForm(form)) {
-            const newPassword = formData.get("password");
-            console.log(`New password is: ${newPassword}`);
-            //TODO: send new password hash to server
+            const newPassword = formData.get("password")?.toString();
+            const oldPassword = formData.get("oldPassword")?.toString();
+            this.userController.saveUserPassword(
+                {oldPassword: oldPassword!, newPassword: newPassword!}
+            );
+
             this.proxy.editPasswordMode = false;
         }
         return false;
@@ -104,14 +107,14 @@ export class FProfile extends BaseComponent {
             const formData = new FormData();
             formData.append('avatar', this.file as Blob, this.inputFileName);
             this.userController.saveAvatar(formData)
-                .then((result) => {
-                    console.log(result);
+                .then(() => {
                     this.displayInputFileLabel = true;
                     this.inputFileName = "";
                     this.dialogTitle = "Загрузите файл";
                     this.proxy.showAvatarDialog = false;
                 })
                 .catch((error) => {
+                    console.log(error);
                     this.dialogError = error.reason;
                     this.dialogTitle = "Ошибка, попробуйте ещё раз";
                     this.inputFileName = "";

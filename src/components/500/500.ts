@@ -15,7 +15,7 @@ export class FServerError extends BaseComponent {
    @Inject('Broadcast') private broadcast!: Broadcast;
 
     returnToChat() {
-   //     this.broadcast.emit("changestate", ChatState.CHAT);
+       this.broadcast.emit("changestate", ChatState.CHAT);
     }
 
     constructor() {
