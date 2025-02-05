@@ -145,7 +145,5 @@ class ChatController {
             })
         });   
     }
-
-
-
 }
+

@@ -65,3 +65,4 @@ class UserController {
 
     private constructor() {}
 }
+
