@@ -8,5 +8,5 @@ export default interface IChatMessage {
     type: string, //Message type Enum: Array [ 2 ]
     content: string //Message content (message text for messages and resourceId for files)
     file: IResource
-    }
-    
+}
+
