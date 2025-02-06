@@ -1,5 +1,3 @@
-import { ChatController } from "../controllers/chat-controller";
-import { UserController } from "../controllers/user-controller";
 import { FNotFound } from "./404/404";
 import { Fahrenheit } from "./451/451";
 import { FServerError } from "./500/500";
@@ -12,8 +10,6 @@ import { FProfile } from "./profile/profile";
 import { FRegister } from "./register/register";
 
 const appComponents = {
-    UserController,
-    ChatController,
     FNotFound,
     Fahrenheit,
     FServerError,
