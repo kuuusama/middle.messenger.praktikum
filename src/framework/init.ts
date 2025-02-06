@@ -9,12 +9,12 @@ import { Router } from "./router";
 import { Store } from "./store";
 
 const frameworkComponents = {
+    Broadcast,
     FButton,
     FLinkButton,
     FLink,
     FInput,
     Router,
-    Broadcast,
     HTTP,
     NetworkService,
     Store,

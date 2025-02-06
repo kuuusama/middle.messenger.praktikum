@@ -45,6 +45,7 @@ export class FMain extends BaseComponent {
     }
 
     constructor() {
+        console.log('init MAIN');
         super();
 
         this.broadcast.on("changestate", (state: ChatState) => {

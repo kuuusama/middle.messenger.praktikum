@@ -24,6 +24,7 @@ export class FLogin extends BaseComponent {
 
     doLogin(event: Event): boolean {
         event.preventDefault();
+        this.form = document.getElementById("loginForm") as HTMLFormElement;
         if (Validator.validateForm(this.form)) {
             this.proxy.error = null;
             const formData = new FormData(this.form);
@@ -41,6 +42,9 @@ export class FLogin extends BaseComponent {
                 })
                 .catch((error) => {
                     this.proxy.error = error.reason;
+                    if (error.reason === "User already in system") {
+                        this.broadcast.emit("changestate", ChatState.CHAT);
+                    }
                 });
         }
         return false;

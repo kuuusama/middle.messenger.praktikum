@@ -26,6 +26,7 @@ const container = new Container();
 
 export function Injectable(): Function {
     return function(target: { new (): unknown }): void {
+        console.log(`init ${target.name}`);
         container.provide({
             token: target.name,
             useValue: new target()
