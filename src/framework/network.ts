@@ -13,7 +13,7 @@ const httpOptions = {
 export
 @Injectable()
 class NetworkService {
-    @Inject('HTTP') private http!: HTTP;
+    @Inject(HTTP.name) private http!: HTTP;
     
     private baseUrl: string = "https://ya-praktikum.tech/api/v2";
     

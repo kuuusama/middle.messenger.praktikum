@@ -33,10 +33,10 @@ const groupBy = <T, K extends string | number | symbol>(arr: T[], key: (i: T) =>
     selector: "f-chatboard",
 })
 export class FChatboard extends BaseComponent {
-   @Inject('Broadcast') private broadcast!: Broadcast;
-   @Inject('ChatController') private chatController!: ChatController;
-   @Inject('UserController') private userController!: UserController;
-   @Inject('Store') private store!: Store;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
+   @Inject(ChatController.name) private chatController!: ChatController;
+   @Inject(UserController.name) private userController!: UserController;
+   @Inject(Store.name) private store!: Store;
 
     chats: Array<IChat> = [];
 

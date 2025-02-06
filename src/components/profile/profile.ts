@@ -16,9 +16,9 @@ import "./profile.scss";
     selector: "f-profile",
 })
 export class FProfile extends BaseComponent {
-   @Inject('Broadcast') private broadcast!: Broadcast;
-   @Inject('Store') private store!: Store;
-   @Inject('UserController') private userController!: UserController;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
+   @Inject(Store.name) private store!: Store;
+   @Inject(UserController.name) private userController!: UserController;
     
     showAvatarDialog: boolean = false;
     editMode: boolean = false;

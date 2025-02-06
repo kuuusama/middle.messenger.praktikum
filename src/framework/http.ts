@@ -39,7 +39,7 @@ function queryStringify(data: StData ) {
 export
 @Injectable()
 class HTTP {
-    @Inject('Router') private router!: Router;
+    @Inject(Router.name) private router!: Router;
 
     public get(url: string, options = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.GET });

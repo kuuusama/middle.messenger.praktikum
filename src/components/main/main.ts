@@ -28,8 +28,8 @@ export enum ChatState {
     selector: "f-main",
 })
 export class FMain extends BaseComponent {
-   @Inject('Router') private router!: Router;
-   @Inject('Broadcast') private broadcast!: Broadcast;
+   @Inject(Router.name) private router!: Router;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
     
     state: ChatState = ChatState.LOGIN;
 

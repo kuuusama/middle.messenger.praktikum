@@ -8,8 +8,8 @@ import IUser from "../shared/models/user";
 export
 @Injectable()
 class ChatController {
-    @Inject('Store') private store!: Store;
-    @Inject('NetworkService') private network!: NetworkService;
+    @Inject(Store.name) private store!: Store;
+    @Inject(NetworkService.name) private network!: NetworkService;
 
     public getChats() {
         this.network.getChats(null, null, '').then( (result) => {

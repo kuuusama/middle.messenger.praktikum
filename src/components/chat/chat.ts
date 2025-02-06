@@ -13,8 +13,8 @@ import "./chat.scss";
     template: template,
 })
 export class FChat extends BaseComponent {
-    @Inject('Broadcast') private broadcast!: Broadcast;
-    @Inject('Store') private store!: Store;
+    @Inject(Broadcast.name) private broadcast!: Broadcast;
+    @Inject(Store.name) private store!: Store;
     
     chat: string = "";
     _chat!: IChat;

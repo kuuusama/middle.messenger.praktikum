@@ -8,9 +8,9 @@ import IUser from "../shared/models/user";
 export
 @Injectable()
 class UserController {
-    @Inject('Store') private store!: Store;
-    @Inject('NetworkService') private network!: NetworkService;
-    @Inject('Broadcast') private broadcast!: Broadcast;
+    @Inject(Store.name) private store!: Store;
+    @Inject(NetworkService.name) private network!: NetworkService;
+    @Inject(Broadcast.name) private broadcast!: Broadcast;
 
     public logout() {
         this.network.logout();

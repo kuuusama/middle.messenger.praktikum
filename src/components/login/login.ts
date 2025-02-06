@@ -15,9 +15,9 @@ import "./login.scss";
     selector: "f-login",
 })
 export class FLogin extends BaseComponent {
-   @Inject('Broadcast') private broadcast!: Broadcast;
-   @Inject('NetworkService') private network!: NetworkService;
-   @Inject('Store') private store!: Store;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
+   @Inject(NetworkService.name) private network!: NetworkService;
+   @Inject(Store.name) private store!: Store;
     
     form!: HTMLFormElement;
     error: string | null = null;

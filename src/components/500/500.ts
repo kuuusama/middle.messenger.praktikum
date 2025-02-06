@@ -12,7 +12,7 @@ import "./500.scss";
     template: template,
 })
 export class FServerError extends BaseComponent {
-   @Inject('Broadcast') private broadcast!: Broadcast;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
 
     returnToChat() {
        this.broadcast.emit("changestate", ChatState.CHAT);

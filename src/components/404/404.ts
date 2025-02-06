@@ -12,7 +12,7 @@ import "./404.scss";
     selector: "f-notfound",
 })
 export class FNotFound extends BaseComponent {
-   @Inject('Broadcast') private broadcast!: Broadcast;
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
 
     returnToChat() {
        this.broadcast.emit("changestate", ChatState.CHAT);
