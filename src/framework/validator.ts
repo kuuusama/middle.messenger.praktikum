@@ -43,7 +43,7 @@ export default class Validator {
                 break;
 
             case "email":
-                result = /^[a-zA-Z0-9._%±]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/g.test(value) ? null : ERRORS.ILLEGAL_EMAIL;
+                result = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value) ? null : ERRORS.ILLEGAL_EMAIL;
                 break;
 
             case "password":

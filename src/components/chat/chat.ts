@@ -28,8 +28,10 @@ export class FChat extends BaseComponent {
         super();
         this.eventBus.emit(EVENTS.INIT);
         this._chat = JSON.parse(this.chat);
-        const lastMessageDate = new Date(this._chat.last_message.time);
-        this._chat.last_message.time = lastMessageDate.toTimeString().split(' ')[0].slice(0, -3);
+        if (this._chat.last_message) {
+            const lastMessageDate = new Date(this._chat.last_message.time);
+            this._chat.last_message.time = lastMessageDate.toTimeString().split(' ')[0].slice(0, -3);
+        }
         this.eventBus.emit(EVENTS.FLOW_CDU);
         const elem = this.getElementsByClassName("chat").item(0);
         elem?.addEventListener("click", this.selectContact.bind(this));
