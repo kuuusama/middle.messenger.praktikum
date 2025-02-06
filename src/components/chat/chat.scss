@@ -37,6 +37,14 @@
         background-color: $color_background_input;
         margin-right: 10px;
         flex-shrink: 0;
+
+        img {
+            width: 47px;
+            max-width: 47px;
+            height: 47px;
+            max-height: 47px;
+            border-radius: 50%;
+        }
     }
 
     .main {
