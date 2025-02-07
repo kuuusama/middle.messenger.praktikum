@@ -148,9 +148,9 @@ export class FProfile extends BaseComponent {
         super();
         this.store.on('user', (userInfo: IUser) => {
             this.user = userInfo;
-            console.log(this.user);
             this.eventBus.emit(EVENTS.FLOW_CDU);
         });
         this.eventBus.emit(EVENTS.INIT);
+        this.userController.downloadUserData();
     }
 }
