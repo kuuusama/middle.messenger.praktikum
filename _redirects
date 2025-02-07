@@ -1,1 +1,7 @@
-/settings /
+/settings /?page=settings 200
+/404 /?page=404 200
+/451 /?page=451 200
+/500 /?page=500 200
+/sign-up /?page=sign-up 200
+/messenger /?page=messenger 200
+

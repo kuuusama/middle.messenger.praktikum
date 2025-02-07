@@ -42,6 +42,38 @@ export class FMain extends BaseComponent {
         this.router.use('/settings', FProfile);
         this.router.use('/messenger', FChatboard);
         this.router.start();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page');
+        if(page) {
+            let target = '';
+            switch(page) {
+                case '404':
+                    target = '/404';
+                    break;
+
+                case '451':
+                    target = '/451';
+                    break;
+
+                case '500':
+                    target = '/500';
+                    break;
+
+                case 'sign-up':
+                    target = '/sign-up';
+                    break;
+
+                case 'settings':
+                    target = '/settings';
+                    break;
+
+                case 'messenger':
+                    target = '/messenger';
+                    break;
+            }
+            this.router.go(target);
+        }
     }
 
     constructor() {
