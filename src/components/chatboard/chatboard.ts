@@ -207,6 +207,7 @@ export class FChatboard extends BaseComponent {
         { elementId: "userMenuButton", eventName: "click", listener: this.toggleUserMenu },
         { elementId: "profileToggleLink", eventName: "click", listener: this.toggleUserProfile },
         { elementId: "phraseForm", eventName: "submit", listener: this.sendPhrase },
+        { elementId: "chatCreateForm", eventName: "submit", listener: this.doCreateChat },
     ];
 
     private parseMessage(message: {[key: string]: string | boolean}): void {

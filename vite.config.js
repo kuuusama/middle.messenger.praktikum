@@ -9,7 +9,11 @@ export default defineConfig({
             {
               src: 'assets',
               dest: ''
-            }
+            },
+            {
+                src: '_redirects',
+                dest: ''
+              },
           ]
         })
     ],

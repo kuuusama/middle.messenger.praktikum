@@ -28,7 +28,7 @@
                     <div class="dialog_title">Создать чат</div>
                     <form id="chatCreateForm">
                         <f-input [class]="full_width" [label]="Наименование" [name]="chat_name" [id]="chat_name"></f-input>
-                        <f-button [class]="full_width" (click)="doCreateChat" [id]="createChatButton" [type]="button">Создать</f-button>
+                        <f-button [class]="full_width" [type]="submit">Создать</f-button>
                         <f-linkbutton (click)="cancelCreateChat">Отмена</f-linkbutton>
                     </form>
                 </div>
