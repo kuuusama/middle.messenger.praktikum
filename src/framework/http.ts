@@ -1,3 +1,10 @@
+import IUser from "../shared/models/user";
+import { Inject, Injectable } from "./injection";
+import { Router } from "./router";
+
+type StData = object & { [key: string]: string | number | undefined } | IUser;
+type RawData = Document | XMLHttpRequestBodyInit | string | null | undefined;
+
 export enum METHODS {
     GET = "GET",
     POST = "POST",
@@ -11,66 +18,94 @@ export interface IOptions {
     };
     method?: METHODS;
     timeout?: number;
-    data?: object & {
-        [key: string]: string;
-    };
+    withCredentials?: boolean;
+    data?: StData | RawData;
     tries?: number;
 }
 
-function queryStringify(data: object & { [key: string]: string | number | boolean }) {
+function queryStringify(data: StData ) {
     if (typeof data !== "object") {
         throw new Error("Data must be object");
     }
 
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
-        const safeValue = encodeURIComponent(data[key]);
+
+        const safeValue = data[key] ? encodeURIComponent(data[key]) : '';
         return `${result}${key}=${safeValue}${index < keys.length - 1 ? "&" : ""}`;
     }, "?");
 }
 
-export class HTTP {
-    get(url: string, options = { timeout: 5000 }): Promise<unknown> {
+export
+@Injectable()
+class HTTP {
+    @Inject(Router.name) private router!: Router;
+
+    public get(url: string, options = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.GET });
     }
 
-    post(url: string, options: IOptions = { timeout: 5000 }): Promise<unknown> {
+    public post(url: string, options: IOptions = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.POST });
     }
 
-    put(url: string, options = { timeout: 5000 }): Promise<unknown> {
+    public put(url: string, options = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.PUT });
     }
 
-    delete(url: string, options = { timeout: 5000 }): Promise<unknown> {
+    public delete(url: string, options = { timeout: 5000 }): Promise<unknown> {
         return this.request(url, { ...options, method: METHODS.DELETE });
     }
 
-    request(url: string, options: IOptions = {}): Promise<unknown> {
-        const { headers = {}, method, data, timeout } = options;
+    private request(url: string, options: IOptions = {}): Promise<unknown> {
+        const { headers = {}, method, data, timeout, withCredentials = true } = options;
 
-        return new Promise(function (resolve, reject) {
+        return new Promise( (resolve, reject) => {
             if (!method) {
                 reject("No method");
                 return;
             }
 
             const xhr = new XMLHttpRequest();
+
+            xhr.withCredentials = withCredentials;
+
             const isGet = method === METHODS.GET;
 
-            xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+            xhr.open(method, isGet && !!data ? `${url}${queryStringify(data as unknown as StData)}` : url);
 
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key]);
             });
 
-            xhr.onload = function () {
+            xhr.onload = () => {
                 if (xhr.readyState === 4) {
-                    resolve(xhr.response);
+                    if(xhr.status === 401) {
+                        this.router.go('/');
+                        reject(xhr.status);
+                    } else if(xhr.status === 404) {
+                        this.router.go('/404');
+                        reject(xhr.status);
+                    } else if(xhr.status === 451) {
+                        this.router.go('/451');
+                        reject(xhr.status);
+                    } else if(xhr.status >= 500) {
+                        this.router.go('/500');
+                        reject(xhr.status);
+                    } else if(xhr.status > 399) {
+                        reject(JSON.parse(xhr.response));
+                    }
+                    else {
+                        resolve(xhr.response);
+                    }                    
                 } else {
                     reject("Error");
                 }
             };
+
+            xhr.onprogress = function(event) {
+                console.log(`${event.type}: ${event.loaded} bytes transferred\n`);
+            }
 
             xhr.onabort = reject;
             xhr.onerror = reject;
@@ -81,29 +116,24 @@ export class HTTP {
             if (isGet || !data) {
                 xhr.send();
             } else {
-                xhr.send(JSON.stringify(data));
+               xhr.send(headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data as RawData);
             }
         });
     }
 
-    requestWithRetry(url: string, options: IOptions): Promise<unknown> {
+    public requestWithRetry(url: string, options: IOptions): Promise<unknown> {
         const { tries = 1 } = options;
 
-        function onError(err: string) {
+        const onError = (err: string) => {
             const triesLeft = tries - 1;
             if (!triesLeft) {
                 throw err;
             }
 
-            return HTTP.i.requestWithRetry(url, { ...options, tries: triesLeft });
+            return this.requestWithRetry(url, { ...options, tries: triesLeft });
         }
 
         return this.request(url, options).catch(onError.bind(this));
-    }
-
-    private static _instance: HTTP;
-    public static get i() {
-        return this._instance || (this._instance = new this());
     }
 
     private constructor() {}

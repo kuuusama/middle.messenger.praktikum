@@ -1,8 +1,11 @@
+import { UserController } from "../../controllers/user-controller";
 import { BaseComponent, EVENTS } from "../../framework/basecomponent";
 import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
+import { Inject } from "../../framework/injection";
+import { Store } from "../../framework/store";
 import Validator from "../../framework/validator";
-import User from "../../shared/models/user";
+import IUser from "../../shared/models/user";
 import { ChatState } from "../main/main";
 import { default as template } from "./profile.html?raw";
 import "./profile.scss";
@@ -13,31 +16,27 @@ import "./profile.scss";
     selector: "f-profile",
 })
 export class FProfile extends BaseComponent {
+   @Inject(Broadcast.name) private broadcast!: Broadcast;
+   @Inject(Store.name) private store!: Store;
+   @Inject(UserController.name) private userController!: UserController;
+    
     showAvatarDialog: boolean = false;
     editMode: boolean = false;
     editPasswordMode: boolean = false;
     displayInputFileLabel: boolean = true;
-    inputFileValue: string = "";
+    inputFileName: string = "";
+    file: File | null = null;
     dialogTitle: string = "Загрузите файл";
     dialogError: string = "Нужно выбрать файл";
 
-    user: User = {
-        email: "ipetrov@mail.fi",
-        login: "IPetroff",
-        first_name: "Иван",
-        second_name: "Петров",
-        display_name: "iPetroff",
-        phone: "+7123456780",
-        password: "QWW123456",
-        avatar: "",
-    };
+    user!: IUser;
 
     goBack() {
-        Broadcast.i.emit("changestate", ChatState.CHAT);
+       this.broadcast.emit("changestate", ChatState.CHAT);
     }
 
     doExit() {
-        Broadcast.i.emit("changestate", ChatState.LOGIN);
+        this.userController.logout();
     }
 
     doEdit(): void {
@@ -58,8 +57,7 @@ export class FProfile extends BaseComponent {
             for (const key of formData.keys()) {
                 this.user[key] = formData.get(key)?.toString() || "";
             }
-            console.log("New user data:");
-            console.log(this.user);
+            this.userController.saveUserData(this.user);
             this.proxy.editMode = false;
         }
         return false;
@@ -70,9 +68,12 @@ export class FProfile extends BaseComponent {
         const form = document.querySelector("#passwordForm") as HTMLFormElement;
         const formData = new FormData(form);
         if (Validator.validateForm(form)) {
-            const newPassword = formData.get("password");
-            console.log(`New password is: ${newPassword}`);
-            //TODO: send new password hash to server
+            const newPassword = formData.get("password")?.toString();
+            const oldPassword = formData.get("oldPassword")?.toString();
+            this.userController.saveUserPassword(
+                {oldPassword: oldPassword!, newPassword: newPassword!}
+            );
+
             this.proxy.editPasswordMode = false;
         }
         return false;
@@ -84,36 +85,41 @@ export class FProfile extends BaseComponent {
 
     fileChanged(): void {
         const inputFile = document.getElementById("inputFile");
-        if (inputFile instanceof HTMLInputElement) {
+        if (inputFile instanceof HTMLInputElement && inputFile.files?.length) {
             const filename = inputFile.value.split(/(\\|\/)/).pop();
 
             if (filename) {
                 this.displayInputFileLabel = false;
-                this.inputFileValue = filename;
+                this.inputFileName = filename;
                 this.dialogTitle = "Файл загружен";
+                this.file = inputFile.files[0];
                 this.proxy.dialogError = "";
             } else {
                 this.displayInputFileLabel = true;
-                this.inputFileValue = "";
+                this.inputFileName = "";
                 this.proxy.dialogTitle = "Загрузите файл";
             }
         }
     }
 
     doAvatarChange(): void {
-        if (this.inputFileValue) {
-            const rnd = Math.random();
-            if (rnd < 0.5) {
-                this.dialogError = "Нужно выбрать файл";
-                this.dialogTitle = "Ошибка, попробуйте ещё раз";
-                this.inputFileValue = "";
-                this.proxy.displayInputFileLabel = true;
-            } else {
-                this.displayInputFileLabel = true;
-                this.inputFileValue = "";
-                this.dialogTitle = "Загрузите файл";
-                this.proxy.showAvatarDialog = false;
-            }
+        if (this.inputFileName) {
+            const formData = new FormData();
+            formData.append('avatar', this.file as Blob, this.inputFileName);
+            this.userController.saveAvatar(formData)
+                .then(() => {
+                    this.displayInputFileLabel = true;
+                    this.inputFileName = "";
+                    this.dialogTitle = "Загрузите файл";
+                    this.proxy.showAvatarDialog = false;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.dialogError = error.reason;
+                    this.dialogTitle = "Ошибка, попробуйте ещё раз";
+                    this.inputFileName = "";
+                    this.proxy.displayInputFileLabel = true;
+                });
         } else {
             this.dialogError = "Нужно выбрать файл";
         }
@@ -131,8 +137,20 @@ export class FProfile extends BaseComponent {
         { elementId: "passwordForm", eventName: "submit", listener: this.doSavePassword },
     ];
 
+    show(): void {
+        this.user = this.store.getData('user');
+        this.style.display = "contents";
+        this.userController.downloadUserData();
+        this.eventBus.emit(EVENTS.FLOW_CDU);
+    }
+
     constructor() {
         super();
+        this.store.on('user', (userInfo: IUser) => {
+            this.user = userInfo;
+            this.eventBus.emit(EVENTS.FLOW_CDU);
+        });
         this.eventBus.emit(EVENTS.INIT);
+        this.userController.downloadUserData();
     }
 }

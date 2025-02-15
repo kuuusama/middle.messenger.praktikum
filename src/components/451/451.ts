@@ -3,15 +3,15 @@ import { Broadcast } from "../../framework/broadcast";
 import { Component } from "../../framework/decorators";
 import { Inject } from "../../framework/injection";
 import { ChatState } from "../main/main";
-import { default as template } from "./500.html?raw";
-import "./500.scss";
+import { default as template } from "./451.html?raw";
+import "./451.scss";
 
 @Component({
-    selector: "f-servererror",
     tagName: "div",
     template: template,
+    selector: "f-farenheit",
 })
-export class FServerError extends BaseComponent {
+export class Fahrenheit extends BaseComponent {
    @Inject(Broadcast.name) private broadcast!: Broadcast;
 
     returnToChat() {

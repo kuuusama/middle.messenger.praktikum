@@ -241,7 +241,9 @@ export abstract class BaseComponent extends HTMLElement {
 
     _render() {
         const block = this.render();
-        this._element.innerHTML = block;
+        if (this._element) {
+            this._element.innerHTML = block;
+        }
         this._assignEvents();
     }
 

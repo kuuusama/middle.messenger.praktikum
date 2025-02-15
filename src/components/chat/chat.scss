@@ -5,288 +5,118 @@
 }
 
 .chat {
-    font-family: "Inter";
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: stretch;
-    flex-grow: 1;
-    width: 99%;
+    align-items: flex-start;
+    box-sizing: border-box;
+    height: 71px;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100%;
 
-    .left {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
+    border-top: 1px solid $color_border;
+    padding: 12px 10px;
 
-        padding: 21px 0 0;
-        width: 310px;
+    cursor: pointer;
+
+    &.selected {
+        background-color: $color_background_selected;
+    }
+
+    &:last-child {
+        border-bottom: 1px solid $color_border;
+    }
+
+    .avatar {
+        width: 47px;
+        max-width: 47px;
+        height: 47px;
+        max-height: 47px;
+        border-radius: 50%;
+        background-color: $color_background_input;
+        margin-right: 10px;
         flex-shrink: 0;
 
-        background-color: $color_background_secondary;
-        border-right: 1px solid $color_border;
-
-        .left_profile {
-            display: flex;
-            flex-direction: row-reverse;
-            width: 100%;
-            margin-bottom: 23px;
-
-            .profile_link {
-                font-family: "Inter";
-                font-size: 12px;
-                color: $color_label;
-                cursor: pointer;
-                margin-right: 10px;
-            }
-        }
-
-        .search_container {
-            padding: 0 10px;
-
-            .search {
-                width: 100%;
-                height: 32px;
-                border-radius: 5px;
-                margin-bottom: 14px;
-                border: none;
-                outline: none;
-                background-color: $color_background_input;
-                padding: 10px;
-            }
-        }
-
-        .contacts {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+        img {
+            width: 47px;
+            max-width: 47px;
+            height: 47px;
+            max-height: 47px;
+            border-radius: 50%;
         }
     }
 
-    .right {
+    .main {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
-        padding: 10px 20px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-right: 17px;
+        overflow: hidden;
         width: 100%;
 
-        .menu {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
-            gap: 16px;
-            padding: 15px;
+        .name {
+            padding: 0;
+            margin: 0;
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: $color_main_text;
+        }
 
-            border-radius: 12px;
-            box-shadow: 0 0 6px 0 $color_shadow;
-            background-color: $color_white;
+        .lastmessage {
+            display: -webkit-box;
+            font-size: 12px;
+            font-weight: 500;
+            color: $color_label;
 
-            position: absolute;
-            z-index: 1;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
 
-            .menu_item {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 15px;
-
-                font-size: 12px;
-                line-height: 14px;
-                font-weight: 500;
+            .you {
                 color: $color_main_text;
-
-                background-color: transparent;
-                border: none;
-                outline: none;
-                cursor: pointer;
-            }
-
-            &.attach_menu {
-                bottom: 75px;
-            }
-
-            &.user_menu {
-                top: 75px;
-                right: 30px;
             }
         }
+    }
 
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid $color_border;
-            width: 100%;
+    .indicators {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
 
-            .active_contact {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-
-                padding: 10px 0;
-
-                .avatar {
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 50%;
-                    background: $color_background_input;
-                    margin-right: 10px;
-                }
-
-                .name {
-                    font-size: 13px;
-                    line-height: 13px;
-                    font-weight: 600;
-                }
-            }
-
-            .menu_button {
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-                background-color: $color_white;
-                border: none;
-                outline: none;
-                cursor: pointer;
-
-                svg {
-                    fill: $color_main_text;
-                }
-
-                &:hover {
-                    background-color: $color_button_hover;
-
-                    svg {
-                        fill: $color_blue;
-                    }
-                }
-            }
-
-            .user_dialog {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: $color_backdrop;
-
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-
-                z-index: 2;
-
-                .dialog_content {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    align-items: center;
-
-                    width: 340px;
-                    padding: 30px 40px;
-                    box-sizing: border-box;
-
-                    background-color: white;
-
-                    border-radius: 12px;
-                    box-shadow: 0 0 6px 0 $color_shadow;
-
-                    .dialog_title {
-                        font-size: 15px;
-                        line-height: 20px;
-                        font-weight: 500;
-                        margin-bottom: 50px;
-                    }
-
-                    #delChatButton {
-                        display: block;
-                    }
-                }
-            }
+        .clock {
+            display: block;
+            font-size: 9px;
+            line-height: 13px;
+            font-weight: 500;
+            color: $color_label;
+            margin-bottom: 14px;
         }
 
-        .conversation {
-            padding-top: 48px;
-            flex-grow: 1;
-
+        .counter {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
 
-            .day {
-                width: 100%;
-            }
-
-            .date {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 30px;
-                color: $color_label;
-                font-size: 12px;
-                line-height: 12px;
-            }
-        }
-
-        .bottom {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: stretch;
-            gap: 10px;
-            padding-top: 10px;
+            width: 20px;
+            height: 20px;
             box-sizing: border-box;
-            border-top: 1px solid $color_border;
+            border-radius: 50%;
+            flex-shrink: 0;
+            font-size: 11px;
+            line-height: 12px;
+            color: $color_white;
+            padding: 4px;
 
-            .attach {
-                width: 32px;
-                height: 32px;
-                background: transparent;
-                cursor: pointer;
-                border: none;
-                outline: none;
-
-                -webkit-mask: url(assets/clip.svg) no-repeat center;
-                mask: url(assets/clip.svg) no-repeat center;
-
-                background-color: $color_label;
-
-                &.pressed,
-                &:hover {
-                    background-color: $color_blue;
-                }
-            }
-
-            .phrase_form {
-                display: contents;
-            }
-
-            .phrase {
-                height: 32px;
-                box-sizing: border-box;
-                border: none;
-                outline: none;
-                border-radius: 30px;
-                padding: 10px 20px;
-                flex-grow: 1;
-                background: $color_background_input;
-            }
-
-            .round {
-                width: 28px;
-                height: 28px;
-                border-radius: 50%;
-                background: $color_blue;
-                cursor: pointer;
-                border: none;
-                outline: none;
-            }
+            background-color: $color_blue;
         }
     }
 }

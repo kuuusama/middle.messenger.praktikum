@@ -37,13 +37,13 @@ export default class Validator {
                 break;
 
             case "login":
-                result = /^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\d\s])[A-Z][a-zA-Z0-9_-]{2,19}$/g.test(value)
+                result = /^[a-zA-Z0-9-_]{3,20}$/g.test(value)
                     ? null
-                    : ERRORS.ILLEGAL_CHARS;
+                    : ERRORS.ILLEGAL_LOGIN;
                 break;
 
             case "email":
-                result = /^[a-zA-Z0-9._%±]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/g.test(value) ? null : ERRORS.ILLEGAL_EMAIL;
+                result = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value) ? null : ERRORS.ILLEGAL_EMAIL;
                 break;
 
             case "password":

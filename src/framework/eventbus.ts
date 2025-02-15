@@ -31,4 +31,12 @@ export class EventBus {
             listener(...args);
         });
     }
+
+    emitIfListenersExists(event: string, ...args: unknown[]) {
+        if (this.listeners[event]) {
+            this.listeners[event].forEach((listener: Function) => {
+                listener(...args);
+            }); 
+        }
+    }
 }

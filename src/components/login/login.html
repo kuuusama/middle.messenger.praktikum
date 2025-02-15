@@ -11,6 +11,9 @@
             [id]="iPwd"
         ></f-input>
         <div class="spacer"></div>
+        {{#if error}}
+            <div class="login_error"> {{ error }} </div>
+        {{/if}}
         <f-button [class]="full_width" [type]="submit">Вход</f-button>
         <f-linkbutton (click)="doRegister" [type]="button" >Регистрация</f-linkbutton>
     </form>

@@ -24,3 +24,5 @@ export function Component(options: IComponentConfig) {
         window.customElements.define(options.selector, constructor);
     };
 }
+
+

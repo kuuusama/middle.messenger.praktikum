@@ -1,10 +1,10 @@
 <div class="message {{#if msg.my}} my {{/if}}">
     <div class="content">
-        {{ msg.text }}
+        {{ msg.content }}
     </div>
 
     <div class="message_indicators">
-        <div {{#if msg.read}}class="read"{{/if}}>
+        <div {{#if msg.is_read}}class="read"{{/if}}>
             <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line
                     y1="-0.5"
@@ -27,7 +27,7 @@
             </svg>
         </div>
         <div class="message_time">
-            {{ msg.time }}
+            {{ msg.internalTime }}
         </div>
     </div>
 </div>
