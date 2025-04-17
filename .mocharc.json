@@ -1,0 +1,8 @@
+{
+    "extension": ["mjs"],
+    "spec": "src/**/*.spec.mjs",
+    "timeout": 5000,
+    "exit": true,
+    "$schema": "https://json.schemastore.org/mocharc.json",
+    "require": ["tsx","mochaSetup.js"]
+}

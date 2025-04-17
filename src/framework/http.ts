@@ -103,10 +103,6 @@ class HTTP {
                 }
             };
 
-            xhr.onprogress = function(event) {
-                console.log(`${event.type}: ${event.loaded} bytes transferred\n`);
-            }
-
             xhr.onabort = reject;
             xhr.onerror = reject;
 

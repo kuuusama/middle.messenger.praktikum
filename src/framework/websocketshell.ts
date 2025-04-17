@@ -22,7 +22,7 @@ export class WebSocketShell {
                 this.bus.emitIfListenersExists('close', event.wasClean ? 'clean' : 'disconnect');
             };
             this.socket.onopen = (event) => {this.bus.emitIfListenersExists('open', event);}
-            this.pingTimer = setInterval(() => this._send(this.pingData), 60000);
+            this.pingTimer = window.setInterval(() => this._send(this.pingData), 60000);
         }
     }
 

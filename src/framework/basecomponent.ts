@@ -41,6 +41,7 @@ export abstract class BaseComponent extends HTMLElement {
     _meta!: Meta;
     eventBus: EventBus;
     props: Props = { events: {}};
+    proxy: BaseComponent;
     [key: string]: unknown;
     listeners?: Array<Listener>;
 
@@ -198,7 +199,7 @@ export abstract class BaseComponent extends HTMLElement {
 
         return function (...args: unknown[]) {
             clearTimeout(timer);
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 mainFunction(...args);
             }, delay);
         };
@@ -222,17 +223,13 @@ export abstract class BaseComponent extends HTMLElement {
 
     // Может переопределять пользователь, необязательно трогать
     componentDidUpdate(oldProps: Props, newProps: Props) {
-        console.log(oldProps);
-        console.log(newProps);
-        return true;
-    }
-
-    setProps(nextProps: Props) {
-        if (!nextProps) {
-            return;
+        if (oldProps) {
+            console.log(oldProps);
         }
-
-        Object.assign(this.props, nextProps);
+        if (newProps) {
+            console.log(newProps);
+        }
+        return true;
     }
 
     get element() {
@@ -256,13 +253,11 @@ export abstract class BaseComponent extends HTMLElement {
         });
     }
 
-    getContent() {
+    public getContent() {
         return this.element;
     }
 
-    proxy: BaseComponent;
-
-    _makePropsProxy(props: BaseComponent): BaseComponent {
+    private _makePropsProxy(props: BaseComponent): BaseComponent {
         const handler = {
             get(target: BaseComponent, prop: string) {
                 const value = target[prop];
@@ -288,15 +283,15 @@ export abstract class BaseComponent extends HTMLElement {
         return new Proxy(props, handler);
     }
 
-    _createDocumentElement(tagName: string): HTMLElement {
+    private _createDocumentElement(tagName: string): HTMLElement {
         return document.createElement(tagName);
     }
 
-    show() {
+    public show() {
         this.style.display = "contents";
     }
 
-    hide() {
+    public hide() {
         this.style.display = "none";
     }
 }
