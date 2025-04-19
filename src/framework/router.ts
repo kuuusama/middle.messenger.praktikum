@@ -5,10 +5,10 @@ export
 @Injectable()
 class Router {
     private routes: Array<Route> = [];
-    private history: History = window.history;
+    private window: Window = globalThis.window;
+    private history: History = globalThis.window.history;
     private currentRoute: Route | null = null;
     private rootQuery: string = "";
-    private window: Window = globalThis.window;
 
     public use(pathname: string, block: CustomElementConstructor) {
         const route = new Route(pathname, block, {rootQuery: this.rootQuery});

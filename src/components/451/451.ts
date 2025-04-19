@@ -12,7 +12,7 @@ import "./451.scss";
     selector: "f-farenheit",
 })
 export class Fahrenheit extends BaseComponent {
-   @Inject(Broadcast.name) private broadcast!: Broadcast;
+    @Inject(Broadcast.name) private broadcast!: Broadcast;
 
     returnToChat() {
        this.broadcast.emit("changestate", ChatState.CHAT);

@@ -10,13 +10,12 @@ export class Route {
     private block: BaseComponent | null;
     private componentConstructor: CustomElementConstructor;
 
-      constructor(pathname: string, view: CustomElementConstructor, props: IRouteSettings) {
-          this.pathname = pathname;
-          this.componentConstructor = view;
-          this.block = null;
-          this.props = props;
-          console.log(this.props);
-      }
+    constructor(pathname: string, view: CustomElementConstructor, props: IRouteSettings) {
+        this.pathname = pathname;
+        this.componentConstructor = view;
+        this.block = null;
+        this.props = props;
+    }
   
     navigate(pathname: string): void {
         if (this.match(pathname)) {
@@ -45,5 +44,9 @@ export class Route {
         }
 
         this.block.show();
+    }
+
+    getProps(): IRouteSettings {
+        return this.props;
     }
 }
